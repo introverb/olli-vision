@@ -1,0 +1,60 @@
+@font-face {
+  font-family: "Agelast";
+  src: url("fonts/agelast.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: #0b0b0c;
+  --ink: #e6e2d6;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Noticia Text", Georgia, serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.stage {
+  height: 100vh;
+  padding: 3vh 3vw;
+  display: flex;
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5vh;
+  font-family: "Agelast", serif;
+  font-weight: 400;
+  font-size: 9vh;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.name__group {
+  display: flex;
+  flex-direction: column;
+}
+
+.name__letter {
+  display: block;
+}
