@@ -25,27 +25,55 @@ body {
 }
 
 body {
-  background: var(--bg);
+  background-color: var(--bg);
   color: var(--ink);
   font-family: "Noticia Text", Georgia, serif;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  position: relative;
+}
+
+/* Canvas for dust-sized particles drawn only inside the hovered panel.
+   Sits above .stage (z-index 2) so particles appear crisp on top of panel content. */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
 }
 
 .stage {
   height: 100vh;
   padding: 3vh 3vw;
   display: flex;
+  align-items: stretch;
+  gap: 0.8vw;
+  position: relative;
+  z-index: 1;
 }
 
 .name {
   display: flex;
   flex-direction: column;
-  gap: 2.5vh;
+  gap: 0;
   font-family: "Agelast", serif;
   font-weight: 400;
-  font-size: 9vh;
+  /* with text-box-trim below, each letter's box measures 0.70em for Agelast.
+     Divide so 9 stacked cap-boxes fill the 94vh content area exactly. */
+  font-size: calc((100vh - 6vh) / 9 / 0.7);
   line-height: 1;
   letter-spacing: 0.04em;
 }
@@ -57,4 +85,347 @@ body {
 
 .name__letter {
   display: block;
+  /* Trim font leading so glyph top/bottom become the box edges */
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+  text-box: trim-both cap alphabetic;
+}
+
+.portrait {
+  position: relative;
+  height: 100%;
+  aspect-ratio: 368 / 1536; /* match the image's natural crop so no cover-crop happens */
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 12, 0.46);
+  pointer-events: none;
+}
+
+/* ---------- Panels (middle column) ---------- */
+
+.panels {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8vh;
+}
+
+.panel {
+  flex: 1 1 0;
+  min-height: 0;
+  border: 1px solid rgba(230, 226, 214, 0.2);
+  padding: 1.4vh 1.4vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+  /* Painted frosted-glass texture: subtle bg tint + crisp white-noise
+     overlay via ::before. No real refraction, just visual frost. */
+  background-color: rgba(230, 226, 214, 0.015);
+  /* Outer drop shadow = raised/lifted feel; inner rim = glass edge */
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(230, 226, 214, 0.09),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.16);
+  /* Dim when not active — hovered panel restores to full opacity */
+  opacity: 0.6;
+  transition:
+    flex-grow 1s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.8s ease,
+    background-color 0.8s ease,
+    box-shadow 0.8s ease,
+    opacity 0.8s ease;
+}
+
+/* Painted noise: medium-frequency crisp grain, overlay blend, fades on hover */
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
+  background-size: 140px 140px;
+  transition: opacity 0.8s ease;
+}
+
+.panel__title {
+  font-family: "Agelast", serif;
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1.4vh, 1.25rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1;
+}
+
+/* HUD readout in the bottom-right of each panel — only visible when expanded */
+.panel__hud {
+  position: absolute;
+  bottom: 1.4vh;
+  right: 1.4vw;
+  text-align: right;
+  color: rgba(230, 226, 214, 0.6);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.6s ease 0.35s;
+}
+
+.panel__hud-line {
+  display: block;
+  line-height: 1.85;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.panel__hud-line--tag {
+  font-family: "Agelast", serif;
+  font-weight: 400;
+  font-size: clamp(0.6rem, 0.82vh, 0.72rem);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(230, 226, 214, 0.78);
+}
+
+.panel__hud-line--mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.6rem, 0.82vh, 0.72rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(230, 226, 214, 0.5);
+}
+
+.panel__body {
+  font-family: "Noticia Text", Georgia, serif;
+  font-size: clamp(0.82rem, 1.4vh, 1rem);
+  line-height: 1.55;
+  color: rgba(230, 226, 214, 0.85);
+  margin-top: 1.2vh;
+  flex: 1 1 auto;
+  min-height: 0;
+  opacity: 0;
+  overflow-y: auto;
+  padding-right: 0.5em;
+  transition: opacity 0.7s ease 0.3s;
+}
+
+.panel__body p + p,
+.panel__body ul + p,
+.panel__body p + ul {
+  margin-top: 0.7em;
+}
+
+.panel__body a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.panel__body a:hover {
+  color: #fff;
+}
+
+.panel__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.panel__links li + li {
+  margin-top: 0.25em;
+}
+
+.panel__timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.panel__timeline li {
+  padding: 0.55em 0;
+}
+
+.panel__timeline li + li {
+  border-top: 1px solid rgba(230, 226, 214, 0.08);
+}
+
+.panel__timeline li:first-child {
+  padding-top: 0;
+}
+
+.panel__timeline li:last-child {
+  padding-bottom: 0;
+}
+
+.panel__timeline-date {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.6rem, 0.82vh, 0.72rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(230, 226, 214, 0.55);
+  margin-bottom: 0.3em;
+}
+
+/* Active state: hovered on desktop, tapped (.is-active class) on mobile.
+   Both triggers apply the same visual state. */
+.panel:hover,
+.panel.is-active {
+  opacity: 1;
+  border-color: rgba(230, 226, 214, 0.42);
+  background-color: rgba(230, 226, 214, 0.055);
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(230, 226, 214, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+}
+
+.panel:hover::before,
+.panel.is-active::before {
+  opacity: 0.04;
+}
+
+.panel:hover .panel__body,
+.panel.is-active .panel__body {
+  opacity: 1;
+}
+
+.panel:hover .panel__hud,
+.panel.is-active .panel__hud {
+  opacity: 1;
+}
+
+/* Flex-grow expansion is desktop-only — mobile uses height-based accordion */
+@media (hover: hover) and (min-width: 721px) {
+  .panel:hover {
+    flex-grow: 4;
+  }
+  .panels:hover .panel:not(:hover) {
+    flex-grow: 0.5;
+  }
+}
+
+/* ---------- Mobile layout (≤720px) ----------
+   Stage becomes a grid: [name, gap, photo] hero row + full-width panels row.
+   Panels stop being flex children and become accordion blocks that tap-toggle
+   via a JS-added .is-active class. Body scrolls. */
+@media (max-width: 720px) {
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .stage {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 42vh auto;
+    grid-template-areas:
+      "name . photo"
+      "panels panels panels";
+    height: auto;
+    min-height: 100vh;
+    padding: 3vh 4vw;
+    row-gap: 3vh;
+    column-gap: 2vw;
+  }
+
+  .name {
+    grid-area: name;
+    /* 9 letters fit the 42vh hero, accounting for text-box-trim (×0.7). */
+    font-size: calc(42vh / 9 / 0.7);
+  }
+
+  .portrait {
+    grid-area: photo;
+    height: 42vh;
+    /* width auto-computed from aspect-ratio: 368/1536 */
+  }
+
+  .panels {
+    grid-area: panels;
+    display: block; /* stack, no flex competition */
+    height: auto;
+    gap: 0; /* margins between panels instead */
+  }
+
+  .panel {
+    display: block;
+    flex: initial;
+    margin-bottom: 1vh;
+    padding: 2vh 4vw;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .panel:last-child {
+    margin-bottom: 0;
+  }
+
+  .panel__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Chevron indicator — rotates when active */
+  .panel__title::after {
+    content: "\25BE"; /* ▾ */
+    font-size: 0.7em;
+    letter-spacing: normal;
+    opacity: 0.5;
+    transition: transform 0.5s ease;
+    display: inline-block;
+  }
+
+  .panel.is-active .panel__title::after {
+    transform: rotate(180deg);
+  }
+
+  /* Accordion body — hidden when collapsed, shown when active. */
+  .panel__body {
+    display: none;
+    margin-top: 1.4vh;
+    opacity: 1; /* override the desktop-hidden default */
+  }
+
+  .panel.is-active .panel__body {
+    display: block;
+  }
+
+  /* HUD on mobile: stack below body instead of floating absolute,
+     so it doesn't overlap when body is tall */
+  .panel__hud {
+    position: static;
+    margin-top: 1.2em;
+    padding-top: 0.8em;
+    border-top: 1px solid rgba(230, 226, 214, 0.1);
+    text-align: right;
+    display: none;
+    opacity: 1; /* override the desktop-hidden default */
+  }
+
+  .panel.is-active .panel__hud {
+    display: block;
+  }
 }
