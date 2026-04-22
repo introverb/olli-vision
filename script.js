@@ -33,11 +33,15 @@
 })();
 
 // Hero cloud particles — mobile only, decorative.
-// Draws a static gaussian cluster into the canvas once. The actual swirl
-// motion is a CSS animation on the canvas element itself (see style.css
-// — `@keyframes hero-swirl`). CSS transforms run on the compositor and
-// don't get throttled by iOS Safari's rAF scroll/idle behavior, which
-// was making the motion look scroll-coupled when we drove it from JS.
+// Particle positions are computed ONCE as stable polar coordinates (radius
+// in sigma units, theta in radians). On each draw we scale to the current
+// canvas size. iOS Safari fires `resize` when the address bar collapses
+// during scroll — redrawing with stable positions (rather than re-rolling
+// random ones) keeps the cluster from "jumping" with each scroll.
+//
+// The actual swirl motion is a CSS animation on the canvas element (see
+// style.css `@keyframes hero-swirl`). CSS transforms run on the compositor
+// and aren't throttled by iOS's rAF scroll/idle behavior.
 (() => {
   const mq = window.matchMedia("(max-width: 720px)");
   if (!mq.matches) return;
@@ -49,6 +53,20 @@
   let w = 0;
   let h = 0;
   let dpr = 1;
+
+  // Stable particle data — same positions across all redraws.
+  const PARTICLE_COUNT = 260;
+  const particles = [];
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const u = Math.max(Math.random(), 1e-9);
+    const v = Math.random();
+    particles.push({
+      r: Math.sqrt(-2 * Math.log(u)), // in sigma units
+      theta: 2 * Math.PI * v,
+      radius: 0.15 + Math.random() * 0.35,
+      alpha: 0.28 + Math.random() * 0.5,
+    });
+  }
 
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -62,25 +80,19 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  const PARTICLE_COUNT = 260;
-
   function draw() {
     ctx.clearRect(0, 0, w, h);
     const cx = w / 2;
     const cy = h / 2;
     const sigma = Math.min(w, h) * 0.45;
     ctx.fillStyle = "rgb(244, 240, 232)";
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const u = Math.max(Math.random(), 1e-9);
-      const v = Math.random();
-      const r = Math.sqrt(-2 * Math.log(u)) * sigma;
-      const theta = 2 * Math.PI * v;
-      ctx.globalAlpha = 0.28 + Math.random() * 0.5;
+    for (const p of particles) {
+      ctx.globalAlpha = p.alpha;
       ctx.beginPath();
       ctx.arc(
-        cx + r * Math.cos(theta),
-        cy + r * Math.sin(theta),
-        0.15 + Math.random() * 0.35,
+        cx + p.r * sigma * Math.cos(p.theta),
+        cy + p.r * sigma * Math.sin(p.theta),
+        p.radius,
         0,
         Math.PI * 2,
       );

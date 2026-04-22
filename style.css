@@ -44,10 +44,18 @@ body {
 }
 
 /* Decorative hero cloud — mobile only. Hidden on desktop; positioned via
-   the "pile" grid cell in the mobile layout (see @media below). */
-.hero-particles {
+   the "pile" grid cell in the mobile layout (see @media below). The
+   wrapper clips the rotated canvas to its grid cell so the rotation
+   doesn't bleed into neighboring columns on iOS Safari. */
+.hero-cloud {
   display: none;
   pointer-events: none;
+}
+
+.hero-particles {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 body::before {
@@ -357,17 +365,22 @@ body::before {
     column-gap: 2vw;
   }
 
-  .hero-particles {
+  .hero-cloud {
     display: block;
     grid-area: pile;
     width: 100%;
     height: 100%;
+    /* Clip the rotated canvas so it doesn't push into the photo column
+       or overflow the viewport horizontally on iOS Safari. */
+    overflow: hidden;
+  }
+
+  .hero-particles {
     /* Swirl is a composited CSS transform rather than JS-driven, so iOS
        Safari doesn't pause it between scrolls. 45s forward + 45s reverse
        via animation-direction: alternate for a 90s full loop. */
     transform-origin: center center;
     animation: hero-swirl 45s ease-in-out infinite alternate;
-    will-change: transform;
   }
 
   @media (prefers-reduced-motion: reduce) {
