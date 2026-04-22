@@ -43,6 +43,13 @@ body {
   z-index: 2;
 }
 
+/* Decorative hero cloud — mobile only. Hidden on desktop; positioned via
+   the "pile" grid cell in the mobile layout (see @media below). */
+.hero-particles {
+  display: none;
+  pointer-events: none;
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -341,13 +348,20 @@ body::before {
     grid-template-columns: auto 1fr auto;
     grid-template-rows: 42vh auto;
     grid-template-areas:
-      "name . photo"
+      "name pile photo"
       "panels panels panels";
     height: auto;
     min-height: 100vh;
     padding: 3vh 4vw;
     row-gap: 3vh;
     column-gap: 2vw;
+  }
+
+  .hero-particles {
+    display: block;
+    grid-area: pile;
+    width: 100%;
+    height: 100%;
   }
 
   .name {

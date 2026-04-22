@@ -32,6 +32,98 @@
   });
 })();
 
+// Hero cloud particles — mobile only, decorative.
+// Lives in the empty grid cell between the name and the photo. Not reactive
+// to input. Each particle has a fixed orbit radius and an individual angular
+// travel; a global phase smoothly ping-pongs 0→1→0 via cosine easing, so the
+// cloud sweeps forward, decelerates, reverses, and loops seamlessly.
+(() => {
+  const mq = window.matchMedia("(max-width: 720px)");
+  if (!mq.matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const canvas = document.querySelector(".hero-particles");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  let w = 0;
+  let h = 0;
+  let dpr = 1;
+  let cx = 0;
+  let cy = 0;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = canvas.getBoundingClientRect();
+    w = rect.width;
+    h = rect.height;
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = w / 2;
+    cy = h / 2;
+  }
+
+  const particles = [];
+  const PARTICLE_COUNT = 260;
+  const HALF_CYCLE_SEC = 45;           // forward-only duration; full loop = 2×
+  const BASE_ROTATION = Math.PI * 0.5; // avg. sweep per particle per half-cycle
+
+  function spawn() {
+    particles.length = 0;
+    const sigma = Math.min(w, h) * 0.45; // looser cluster
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const u = Math.max(Math.random(), 1e-9);
+      const v = Math.random();
+      const r = Math.sqrt(-2 * Math.log(u)) * sigma;
+      const theta0 = 2 * Math.PI * v;
+      // Vary each particle's angular travel so the cloud shears instead
+      // of rigid-body rotating. Same sign keeps swirl coherent overall.
+      const omega = BASE_ROTATION * (0.8 + Math.random() * 0.4);
+      particles.push({
+        r,
+        theta0,
+        omega,
+        radius: 0.15 + Math.random() * 0.35,
+        alpha: 0.28 + Math.random() * 0.5,
+      });
+    }
+  }
+
+  resize();
+  spawn();
+  window.addEventListener("resize", () => {
+    resize();
+    spawn();
+  });
+
+  function tick(now) {
+    ctx.clearRect(0, 0, w, h);
+
+    // Smooth ping-pong [0..1..0] via cosine. Sinusoidal easing means the
+    // reversal at each endpoint is imperceptible — velocity crosses zero.
+    const t = now * 0.001;
+    const phase = (1 - Math.cos((Math.PI * t) / HALF_CYCLE_SEC)) / 2;
+
+    ctx.fillStyle = "rgb(244, 240, 232)";
+    for (const p of particles) {
+      const angle = p.theta0 + p.omega * phase;
+      const x = cx + p.r * Math.cos(angle);
+      const y = cy + p.r * Math.sin(angle);
+      ctx.globalAlpha = p.alpha;
+      ctx.beginPath();
+      ctx.arc(x, y, p.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
 // Tiny dust/sand particles that only appear inside an expanded panel.
 // Particles fade in when a panel is hovered, stay bounded inside its rect,
 // repel gently from the cursor, and fade out on hover leave.
