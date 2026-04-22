@@ -46,9 +46,12 @@
   if (!group) return;
 
   const svgNS = "http://www.w3.org/2000/svg";
-  const cx = 100; // viewBox center
-  const cy = 100;
-  const sigma = 30; // cluster spread in viewBox units
+  // Cluster is offset to the upper portion of the viewBox so it aligns with
+  // the original hero-row placement; the CSS transform-origin (50% 25%)
+  // matches this so the expand animation radiates out from the cluster.
+  const cx = 100;
+  const cy = 75;
+  const sigma = 30;
 
   const PARTICLE_COUNT = 260;
   for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -59,9 +62,9 @@
     const circle = document.createElementNS(svgNS, "circle");
     circle.setAttribute("cx", (cx + r * Math.cos(theta)).toFixed(2));
     circle.setAttribute("cy", (cy + r * Math.sin(theta)).toFixed(2));
-    circle.setAttribute("r", (0.3 + Math.random() * 0.6).toFixed(2));
+    circle.setAttribute("r", (0.15 + Math.random() * 0.25).toFixed(2));
     circle.setAttribute("fill", "rgb(244, 240, 232)");
-    circle.setAttribute("opacity", (0.28 + Math.random() * 0.5).toFixed(2));
+    circle.setAttribute("opacity", (0.22 + Math.random() * 0.35).toFixed(2));
     group.appendChild(circle);
   }
 })();

@@ -367,23 +367,25 @@ body::before {
 
   .hero-cloud {
     display: block;
-    /* Escape the grid and cover the whole stage; z-index: -1 places it
-       behind the static siblings (name, photo, panels) so the cloud
-       spreads across the page and is visible in the gaps between
-       panels. .stage already has position: relative and z-index: 1,
-       which contains this negative z-index within its stacking context. */
-    position: absolute;
-    inset: 0;
+    /* Back in the hero-row middle cell for the original placement, but
+       overflow: visible lets the scale animation spread outward past
+       the cell into the panels row below. z-index: -1 pushes the cloud
+       behind all siblings; .stage has z-index: 1 so this is contained. */
+    grid-area: pile;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
     z-index: -1;
-    overflow: hidden;
   }
 
   .hero-particles {
     /* One-way expanding dust — each cycle starts as a tight cluster at
-       the stage center, expands outward fading in, peaks fully spread,
-       then fades out before the cycle resets. Fade-in at start and
-       fade-out at end hide the loop seam (invisible at both ends). */
-    transform-origin: center center;
+       the hero-row center, expands outward fading in, peaks fully
+       spread, then fades out before the cycle resets. Fade-in at start
+       and fade-out at end hide the loop seam. Transform-origin
+       50%/25% keeps the cluster anchored near the top of the cell
+       where the original placement was. */
+    transform-origin: 50% 25%;
     animation: hero-expand 20s linear infinite;
     will-change: transform, opacity;
   }
@@ -420,6 +422,15 @@ body::before {
     padding: 2vh 4vw;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+    /* Solid bg + full opacity so the hero cloud (z-index: -1 sibling)
+       is blocked by panel bodies. Cloud stays visible only in the gaps
+       between panels and above/below the panels row. */
+    opacity: 1;
+    background-color: var(--bg);
+  }
+
+  .panel.is-active {
+    background-color: #171717;
   }
 
   .panel:last-child {
@@ -476,7 +487,7 @@ body::before {
 
 @keyframes hero-expand {
   0% {
-    transform: scale(0.5);
+    transform: scale(0.6);
     opacity: 0;
   }
   10% {
@@ -486,7 +497,7 @@ body::before {
     opacity: 1;
   }
   100% {
-    transform: scale(2.5);
+    transform: scale(2);
     opacity: 0;
   }
 }
