@@ -33,14 +33,14 @@
 })();
 
 // Hero cloud particles — mobile only, decorative.
-// Lives in the empty grid cell between the name and the photo. Not reactive
-// to input. Each particle has a fixed orbit radius and an individual angular
-// travel; a global phase smoothly ping-pongs 0→1→0 via cosine easing, so the
-// cloud sweeps forward, decelerates, reverses, and loops seamlessly.
+// Draws a static gaussian cluster into the canvas once. The actual swirl
+// motion is a CSS animation on the canvas element itself (see style.css
+// — `@keyframes hero-swirl`). CSS transforms run on the compositor and
+// don't get throttled by iOS Safari's rAF scroll/idle behavior, which
+// was making the motion look scroll-coupled when we drove it from JS.
 (() => {
   const mq = window.matchMedia("(max-width: 720px)");
   if (!mq.matches) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   const canvas = document.querySelector(".hero-particles");
   if (!canvas) return;
@@ -49,8 +49,6 @@
   let w = 0;
   let h = 0;
   let dpr = 1;
-  let cx = 0;
-  let cy = 0;
 
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -62,66 +60,41 @@
     canvas.style.width = w + "px";
     canvas.style.height = h + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    cx = w / 2;
-    cy = h / 2;
   }
 
-  const particles = [];
   const PARTICLE_COUNT = 260;
-  const HALF_CYCLE_SEC = 45;           // forward-only duration; full loop = 2×
-  const BASE_ROTATION = Math.PI * 0.5; // avg. sweep per particle per half-cycle
 
-  function spawn() {
-    particles.length = 0;
-    const sigma = Math.min(w, h) * 0.45; // looser cluster
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    const cx = w / 2;
+    const cy = h / 2;
+    const sigma = Math.min(w, h) * 0.45;
+    ctx.fillStyle = "rgb(244, 240, 232)";
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       const u = Math.max(Math.random(), 1e-9);
       const v = Math.random();
       const r = Math.sqrt(-2 * Math.log(u)) * sigma;
-      const theta0 = 2 * Math.PI * v;
-      // Vary each particle's angular travel so the cloud shears instead
-      // of rigid-body rotating. Same sign keeps swirl coherent overall.
-      const omega = BASE_ROTATION * (0.8 + Math.random() * 0.4);
-      particles.push({
-        r,
-        theta0,
-        omega,
-        radius: 0.15 + Math.random() * 0.35,
-        alpha: 0.28 + Math.random() * 0.5,
-      });
-    }
-  }
-
-  resize();
-  spawn();
-  window.addEventListener("resize", () => {
-    resize();
-    spawn();
-  });
-
-  function tick(now) {
-    ctx.clearRect(0, 0, w, h);
-
-    // Smooth ping-pong [0..1..0] via cosine. Sinusoidal easing means the
-    // reversal at each endpoint is imperceptible — velocity crosses zero.
-    const t = now * 0.001;
-    const phase = (1 - Math.cos((Math.PI * t) / HALF_CYCLE_SEC)) / 2;
-
-    ctx.fillStyle = "rgb(244, 240, 232)";
-    for (const p of particles) {
-      const angle = p.theta0 + p.omega * phase;
-      const x = cx + p.r * Math.cos(angle);
-      const y = cy + p.r * Math.sin(angle);
-      ctx.globalAlpha = p.alpha;
+      const theta = 2 * Math.PI * v;
+      ctx.globalAlpha = 0.28 + Math.random() * 0.5;
       ctx.beginPath();
-      ctx.arc(x, y, p.radius, 0, Math.PI * 2);
+      ctx.arc(
+        cx + r * Math.cos(theta),
+        cy + r * Math.sin(theta),
+        0.15 + Math.random() * 0.35,
+        0,
+        Math.PI * 2,
+      );
       ctx.fill();
     }
     ctx.globalAlpha = 1;
-
-    requestAnimationFrame(tick);
   }
-  requestAnimationFrame(tick);
+
+  resize();
+  draw();
+  window.addEventListener("resize", () => {
+    resize();
+    draw();
+  });
 })();
 
 // Tiny dust/sand particles that only appear inside an expanded panel.
