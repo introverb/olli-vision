@@ -85,45 +85,47 @@
     my = e.clientY;
   });
 
-  // Each panel starts with a tight gaussian cluster at a distinct anchor.
-  // Particles drift outward naturally; different starting blobs make each
-  // panel feel like its own space rather than a shared dust pattern.
-  // Returns normalized [x, y] in 0..1 for the panel rect.
-  function gaussianAt(cx, cy, spread) {
-    return () => {
-      const u = Math.max(Math.random(), 1e-9);
-      const v = Math.random();
-      const r = Math.sqrt(-2 * Math.log(u)) * spread;
-      const theta = 2 * Math.PI * v;
-      return [
-        Math.max(0.02, Math.min(0.98, cx + r * Math.cos(theta))),
-        Math.max(0.02, Math.min(0.98, cy + r * Math.sin(theta))),
-      ];
-    };
-  }
-
-  const panelPatterns = [
-    gaussianAt(0.5, 0.5, 0.13), // 0 Intro: center
-    gaussianAt(0.28, 0.28, 0.13), // 1 Past: upper-left
-    gaussianAt(0.68, 0.58, 0.13), // 2 Current: middle-right
-    gaussianAt(0.45, 0.75, 0.13), // 3 Future: lower-center
-    gaussianAt(0.78, 0.5, 0.13), // 4 Signal: right-side
+  // Per-panel cluster parameters. Spread (sx, sy) in pixels so clusters
+  // look circular regardless of panel aspect ratio. Each panel has its
+  // own size, aspect, and rotation so the clusters feel distinct.
+  const panelClusters = [
+    { cx: 0.5,  cy: 0.5,  sx: 75, sy: 75, angle: 0 },           // Intro
+    { cx: 0.3,  cy: 0.32, sx: 95, sy: 60, angle: 0 },           // Past
+    { cx: 0.7,  cy: 0.55, sx: 65, sy: 65, angle: 0 },           // Current
+    { cx: 0.45, cy: 0.72, sx: 95, sy: 55, angle: Math.PI / 10 },// Future
+    { cx: 0.78, cy: 0.5,  sx: 55, sy: 85, angle: 0 },           // Signal
   ];
+
+  // Sample one point from the cluster's 2D gaussian, returned in pixel coords.
+  function sampleCluster(rect, c) {
+    const u = Math.max(Math.random(), 1e-9);
+    const v = Math.random();
+    const r = Math.sqrt(-2 * Math.log(u));
+    const theta = 2 * Math.PI * v;
+    const ox = r * c.sx * Math.cos(theta);
+    const oy = r * c.sy * Math.sin(theta);
+    const cos = Math.cos(c.angle);
+    const sin = Math.sin(c.angle);
+    return [
+      rect.left + c.cx * rect.width + (ox * cos - oy * sin),
+      rect.top + c.cy * rect.height + (ox * sin + oy * cos),
+    ];
+  }
 
   const allPanels = Array.from(document.querySelectorAll(".panel"));
 
   // Particle pool — absolute viewport coords, wrapped to active panel rect
   const particles = [];
-  const PARTICLE_COUNT = 220;
+  const PARTICLE_COUNT = 330;
   function spawnIn(rect, panel) {
     particles.length = 0;
     const idx = allPanels.indexOf(panel);
-    const pattern = panelPatterns[idx] || panelPatterns[0];
+    const cluster = panelClusters[idx] || panelClusters[0];
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const [nx, ny] = pattern();
+      const [px, py] = sampleCluster(rect, cluster);
       particles.push({
-        x: rect.left + nx * rect.width,
-        y: rect.top + ny * rect.height,
+        x: px,
+        y: py,
         vx: (Math.random() - 0.5) * 0.18,
         vy: (Math.random() - 0.5) * 0.18,
         r: 0.15 + Math.random() * 0.35, // finer grains: 0.15–0.5 px
@@ -163,8 +165,6 @@
       return;
     }
 
-    const rect = panel.getBoundingClientRect();
-
     ctx.fillStyle = "rgb(244, 240, 232)";
     for (const p of particles) {
       // cursor repel
@@ -178,17 +178,12 @@
         p.vy += (dy / d) * force;
       }
 
-      // slight damping + wisp of brownian motion
+      // slight damping + wisp of brownian motion — no recall force, so
+      // once scattered by the cursor, they stay scattered until the next hover
       p.vx = p.vx * 0.97 + (Math.random() - 0.5) * 0.004;
       p.vy = p.vy * 0.97 + (Math.random() - 0.5) * 0.004;
       p.x += p.vx;
       p.y += p.vy;
-
-      // wrap inside the active panel's rect (keeps them contained)
-      if (p.x < rect.left) p.x = rect.right;
-      else if (p.x > rect.right) p.x = rect.left;
-      if (p.y < rect.top) p.y = rect.bottom;
-      else if (p.y > rect.bottom) p.y = rect.top;
 
       ctx.globalAlpha = p.a * activity;
       ctx.beginPath();
