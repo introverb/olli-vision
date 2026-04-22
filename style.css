@@ -383,7 +383,7 @@ body::before {
        composited so it runs regardless of JS activity or scroll.
        75s per direction, alternate, infinite → ~2.5 min full loop. */
     transform-origin: center center;
-    animation: hero-breathe 30s ease-in-out infinite alternate;
+    animation: hero-breathe 22.5s ease-in-out infinite alternate;
     will-change: transform;
   }
 
