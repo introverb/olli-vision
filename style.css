@@ -376,11 +376,12 @@ body::before {
   }
 
   .hero-particles {
-    /* Swirl is a composited CSS transform rather than JS-driven, so iOS
-       Safari doesn't pause it between scrolls. 45s forward + 45s reverse
-       via animation-direction: alternate for a 90s full loop. */
+    /* Breathing motion — the cloud disperses outward, then contracts back.
+       CSS transform is composited on the GPU so it runs smoothly
+       regardless of JS activity or scroll. 75s per direction,
+       alternate, infinite → ~2.5 minute full loop, very slow. */
     transform-origin: center center;
-    animation: hero-swirl 45s ease-in-out infinite alternate;
+    animation: hero-breathe 75s ease-in-out infinite alternate;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -469,11 +470,11 @@ body::before {
   }
 }
 
-@keyframes hero-swirl {
+@keyframes hero-breathe {
   from {
-    transform: rotate(0deg);
+    transform: scale(0.85);
   }
   to {
-    transform: rotate(60deg);
+    transform: scale(1.2);
   }
 }
