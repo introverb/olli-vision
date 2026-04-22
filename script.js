@@ -32,81 +32,38 @@
   });
 })();
 
-// Hero cloud particles — mobile only, decorative.
-// Particle positions are computed ONCE as stable polar coordinates (radius
-// in sigma units, theta in radians). On each draw we scale to the current
-// canvas size. iOS Safari fires `resize` when the address bar collapses
-// during scroll — redrawing with stable positions (rather than re-rolling
-// random ones) keeps the cluster from "jumping" with each scroll.
-//
-// The actual swirl motion is a CSS animation on the canvas element (see
-// style.css `@keyframes hero-swirl`). CSS transforms run on the compositor
-// and aren't throttled by iOS's rAF scroll/idle behavior.
+// Hero cloud particles — mobile only, decorative. SVG + CSS animation.
+// Generates 260 SVG circles inside a group once at load. Positions are
+// in viewBox coordinates (0..200), so the SVG renderer handles scaling
+// to whatever CSS size the grid cell provides — no resize handling, no
+// redraw on scroll. Breathing motion is a CSS animation on the group
+// (see style.css `@keyframes hero-breathe`).
 (() => {
   const mq = window.matchMedia("(max-width: 720px)");
   if (!mq.matches) return;
 
-  const canvas = document.querySelector(".hero-particles");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
+  const group = document.querySelector(".hero-particles__group");
+  if (!group) return;
 
-  let w = 0;
-  let h = 0;
-  let dpr = 1;
+  const svgNS = "http://www.w3.org/2000/svg";
+  const cx = 100; // viewBox center
+  const cy = 100;
+  const sigma = 30; // cluster spread in viewBox units
 
-  // Stable particle data — same positions across all redraws.
   const PARTICLE_COUNT = 260;
-  const particles = [];
   for (let i = 0; i < PARTICLE_COUNT; i++) {
     const u = Math.max(Math.random(), 1e-9);
     const v = Math.random();
-    particles.push({
-      r: Math.sqrt(-2 * Math.log(u)), // in sigma units
-      theta: 2 * Math.PI * v,
-      radius: 0.15 + Math.random() * 0.35,
-      alpha: 0.28 + Math.random() * 0.5,
-    });
+    const r = Math.sqrt(-2 * Math.log(u)) * sigma;
+    const theta = 2 * Math.PI * v;
+    const circle = document.createElementNS(svgNS, "circle");
+    circle.setAttribute("cx", (cx + r * Math.cos(theta)).toFixed(2));
+    circle.setAttribute("cy", (cy + r * Math.sin(theta)).toFixed(2));
+    circle.setAttribute("r", (0.3 + Math.random() * 0.6).toFixed(2));
+    circle.setAttribute("fill", "rgb(244, 240, 232)");
+    circle.setAttribute("opacity", (0.28 + Math.random() * 0.5).toFixed(2));
+    group.appendChild(circle);
   }
-
-  function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const rect = canvas.getBoundingClientRect();
-    w = rect.width;
-    h = rect.height;
-    canvas.width = Math.floor(w * dpr);
-    canvas.height = Math.floor(h * dpr);
-    canvas.style.width = w + "px";
-    canvas.style.height = h + "px";
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, w, h);
-    const cx = w / 2;
-    const cy = h / 2;
-    const sigma = Math.min(w, h) * 0.45;
-    ctx.fillStyle = "rgb(244, 240, 232)";
-    for (const p of particles) {
-      ctx.globalAlpha = p.alpha;
-      ctx.beginPath();
-      ctx.arc(
-        cx + p.r * sigma * Math.cos(p.theta),
-        cy + p.r * sigma * Math.sin(p.theta),
-        p.radius,
-        0,
-        Math.PI * 2,
-      );
-      ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-  }
-
-  resize();
-  draw();
-  window.addEventListener("resize", () => {
-    resize();
-    draw();
-  });
 })();
 
 // Tiny dust/sand particles that only appear inside an expanded panel.

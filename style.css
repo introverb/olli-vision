@@ -375,17 +375,19 @@ body::before {
     overflow: hidden;
   }
 
-  .hero-particles {
+  .hero-particles__group {
     /* Breathing motion — the cloud disperses outward, then contracts back.
-       CSS transform is composited on the GPU so it runs smoothly
-       regardless of JS activity or scroll. 75s per direction,
-       alternate, infinite → ~2.5 minute full loop, very slow. */
-    transform-origin: center center;
+       Transform-origin uses the SVG viewBox center (100, 100 given the
+       200×200 viewBox). CSS transform is GPU-composited so it runs
+       regardless of JS activity or scroll. 75s per direction, alternate,
+       infinite → ~2.5 minute full loop. */
+    transform-origin: 100px 100px;
     animation: hero-breathe 75s ease-in-out infinite alternate;
+    will-change: transform;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-particles {
+    .hero-particles__group {
       animation: none;
     }
   }
