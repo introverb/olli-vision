@@ -367,24 +367,25 @@ body::before {
 
   .hero-cloud {
     display: block;
-    grid-area: pile;
-    width: 100%;
-    height: 100%;
-    /* Clip the rotated canvas so it doesn't push into the photo column
-       or overflow the viewport horizontally on iOS Safari. */
+    /* Escape the grid and cover the whole stage; z-index: -1 places it
+       behind the static siblings (name, photo, panels) so the cloud
+       spreads across the page and is visible in the gaps between
+       panels. .stage already has position: relative and z-index: 1,
+       which contains this negative z-index within its stacking context. */
+    position: absolute;
+    inset: 0;
+    z-index: -1;
     overflow: hidden;
   }
 
   .hero-particles {
-    /* Breathing motion — the cloud disperses outward, then contracts back.
-       Animating the <svg> element (a block-level replaced element) rather
-       than an inner <g> because iOS Safari has historical issues with
-       transform-origin on SVG child elements. CSS transform is GPU-
-       composited so it runs regardless of JS activity or scroll.
-       75s per direction, alternate, infinite → ~2.5 min full loop. */
+    /* One-way expanding dust — each cycle starts as a tight cluster at
+       the stage center, expands outward fading in, peaks fully spread,
+       then fades out before the cycle resets. Fade-in at start and
+       fade-out at end hide the loop seam (invisible at both ends). */
     transform-origin: center center;
-    animation: hero-breathe 12.5s ease-in-out infinite alternate;
-    will-change: transform;
+    animation: hero-expand 20s linear infinite;
+    will-change: transform, opacity;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -473,11 +474,19 @@ body::before {
   }
 }
 
-@keyframes hero-breathe {
-  from {
-    transform: scale(0.85);
+@keyframes hero-expand {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
   }
-  to {
-    transform: scale(1.2);
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
   }
 }
