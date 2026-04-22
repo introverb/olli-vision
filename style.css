@@ -379,14 +379,14 @@ body::before {
   }
 
   .hero-particles {
-    /* One-way expanding dust — each cycle starts as a tight cluster at
-       the hero-row center, expands outward fading in, peaks fully
-       spread, then fades out before the cycle resets. Fade-in at start
-       and fade-out at end hide the loop seam. Transform-origin
-       50%/25% keeps the cluster anchored near the top of the cell
-       where the original placement was. */
+    /* Single expansion that freezes at full spread. 30s duration (50%
+       longer than the previous looping version), linear, one iteration,
+       `forwards` fill-mode so the particles hold at peak scale + full
+       opacity after the animation ends instead of snapping back or
+       fading out. transform-origin 50%/25% anchors the expansion to the
+       cluster position in the hero-row cell. */
     transform-origin: 50% 25%;
-    animation: hero-expand 20s linear infinite;
+    animation: hero-expand 30s linear forwards;
     will-change: transform, opacity;
   }
 
@@ -493,11 +493,8 @@ body::before {
   10% {
     opacity: 1;
   }
-  90% {
-    opacity: 1;
-  }
   100% {
     transform: scale(2);
-    opacity: 0;
+    opacity: 1;
   }
 }
