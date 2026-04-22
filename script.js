@@ -7,7 +7,7 @@
       hour12: false,
       timeZone: "America/New_York",
     }).format(new Date());
-    const text = `LOCAL ${hm.replace(/^24:/, "00:")}`;
+    const text = hm.replace(/^24:/, "00:");
     document.querySelectorAll("[data-clock]").forEach((el) => {
       el.textContent = text;
     });
