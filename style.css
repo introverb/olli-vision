@@ -593,12 +593,11 @@ body.page-manifestations {
 .manifestations__title {
   font-family: "Agelast", serif;
   font-weight: 400;
-  /* Sized to fit the container's content area on wide viewports (with
-     the padding cap above). 4.3rem ≈ 68.8px max with tighter 0.02em
-     letter-spacing keeps 'MANIFESTATIONS' just under the right edge
-     of the entry rows below on viewports up to 4K. */
+  /* Negative letter-spacing so the Agelast letterforms touch each other,
+     matching the tight stacking of OLLI PAYNE on the home page. Size is
+     still being tuned — letterspacing pass first, then size pass. */
   font-size: clamp(2.2rem, 6.4vw, 4.3rem);
-  letter-spacing: 0.02em;
+  letter-spacing: -0.04em;
   text-transform: uppercase;
   margin-bottom: 6vh;
   line-height: 1;
