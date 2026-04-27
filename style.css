@@ -566,7 +566,7 @@ body.page-manifestations {
   margin: 0 auto;
   /* Cap horizontal padding so it doesn't eat the container's content
      area on very wide viewports (e.g. 4K screens where 6vw is huge). */
-  padding: 8vh min(6vw, 4rem) 14vh;
+  padding: 8vh min(6vw, 3rem) 14vh;
   position: relative;
   z-index: 1;
 }
@@ -594,10 +594,11 @@ body.page-manifestations {
   font-family: "Agelast", serif;
   font-weight: 400;
   /* Sized to fit the container's content area on wide viewports (with
-     the padding cap above). 4rem ≈ 64px max — tighter letter-spacing
-     than the home name to keep the 14-character word from overflowing. */
-  font-size: clamp(2rem, 6vw, 4rem);
-  letter-spacing: 0.04em;
+     the padding cap above). 4.3rem ≈ 68.8px max with tighter 0.02em
+     letter-spacing keeps 'MANIFESTATIONS' just under the right edge
+     of the entry rows below on viewports up to 4K. */
+  font-size: clamp(2.2rem, 6.4vw, 4.3rem);
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   margin-bottom: 6vh;
   line-height: 1;
