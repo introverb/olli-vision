@@ -564,7 +564,9 @@ body.page-manifestations {
 .manifestations {
   max-width: 760px;
   margin: 0 auto;
-  padding: 8vh 6vw 14vh;
+  /* Cap horizontal padding so it doesn't eat the container's content
+     area on very wide viewports (e.g. 4K screens where 6vw is huge). */
+  padding: 8vh min(6vw, 4rem) 14vh;
   position: relative;
   z-index: 1;
 }
@@ -591,8 +593,11 @@ body.page-manifestations {
 .manifestations__title {
   font-family: "Agelast", serif;
   font-weight: 400;
-  font-size: clamp(2.4rem, 9vh, 5rem);
-  letter-spacing: 0.06em;
+  /* Sized to fit the container's content area on wide viewports (with
+     the padding cap above). 4rem ≈ 64px max — tighter letter-spacing
+     than the home name to keep the 14-character word from overflowing. */
+  font-size: clamp(2rem, 6vw, 4rem);
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   margin-bottom: 6vh;
   line-height: 1;
