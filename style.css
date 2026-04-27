@@ -723,3 +723,73 @@ a.manifest-entry__row[href="#"] .manifest-entry__indicator--arrow {
     width: 56px;
   }
 }
+
+/* ========== Manifestation entry sub-pages (e.g. /manifestations/ovamanner/) ========== */
+
+body.page-entry {
+  /* Same scroll override as the manifestations list — these pages are tall. */
+  overflow: auto;
+  height: auto;
+  min-height: 100%;
+}
+
+.entry {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 8vh min(6vw, 3rem) 14vh;
+  position: relative;
+  z-index: 1;
+}
+
+.entry__nav {
+  margin-bottom: 6vh;
+}
+
+.entry__back {
+  display: inline-block;
+  font-family: "Agelast", serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(230, 226, 214, 0.55);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.entry__back:hover {
+  color: var(--ink);
+}
+
+.entry__header {
+  margin-bottom: 8vh;
+}
+
+.entry__date {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(230, 226, 214, 0.5);
+  margin-bottom: 1.5em;
+}
+
+.entry__title {
+  font-family: "Agelast", serif;
+  font-weight: 400;
+  font-size: clamp(2.6rem, 8vw, 6rem);
+  letter-spacing: -0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.entry__body {
+  font-family: "Noticia Text", Georgia, serif;
+  font-size: clamp(1rem, 1.7vh, 1.15rem);
+  line-height: 1.65;
+  color: rgba(230, 226, 214, 0.88);
+}
+
+.entry__body p + p {
+  margin-top: 1em;
+}
