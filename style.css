@@ -648,6 +648,18 @@ a.manifest-entry__row:hover .manifest-entry__indicator {
   color: #fff;
 }
 
+/* Placeholder entries (no destination yet) — not clickable, dimmer arrow
+   so the row doesn't look like a broken link. As soon as href is set to
+   a real URL, the row becomes interactive automatically. */
+a.manifest-entry__row[href="#"] {
+  cursor: default;
+  pointer-events: none;
+}
+
+a.manifest-entry__row[href="#"] .manifest-entry__indicator--arrow {
+  color: rgba(230, 226, 214, 0.22);
+}
+
 .manifest-entry__meta {
   grid-area: meta;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
