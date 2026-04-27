@@ -597,18 +597,18 @@ body.page-manifestations {
      matching the tight stacking of OLLI PAYNE on the home page. Size is
      still being tuned — letterspacing pass first, then size pass. */
   font-size: clamp(2.2rem, 6.4vw, 4.3rem);
-  letter-spacing: -0.06em;
+  letter-spacing: -0.1em;
   text-transform: uppercase;
   margin-bottom: 6vh;
   line-height: 1;
 }
 
 /* The thin first 'I' (between N and F) gets isolated breathing room so it
-   doesn't disappear into its thicker neighbors when the rest of the title
-   collapses tight. Padding cancels the parent's negative letter-spacing
-   on this letter's edges and adds a small visible gap. */
+   doesn't disappear into its thicker neighbors. Padding 0.06em on each
+   side cancels enough of the -0.1em parent letter-spacing to leave the
+   I with an effective -0.04em around it (close, but still readable). */
 .manifestations__title-i {
-  padding: 0 0.1em;
+  padding: 0 0.06em;
 }
 
 .manifestations__list {
