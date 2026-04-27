@@ -793,3 +793,20 @@ body.page-entry {
 .entry__body p + p {
   margin-top: 1em;
 }
+
+/* Section subhead — smaller Agelast, same tight letter-spacing family as the
+   page title so it reads as the same publication's voice at a smaller scale. */
+.entry__subhead {
+  font-family: "Agelast", serif;
+  font-weight: 400;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: rgba(230, 226, 214, 0.95);
+  margin-bottom: 1em;
+  line-height: 1.1;
+}
+
+.entry__subhead + p {
+  margin-top: 0;
+}
