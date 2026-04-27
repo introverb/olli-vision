@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manifestations &middot; Olli Payne</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noticia+Text:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css?v=34" />
+</head>
+<body class="page-manifestations">
+  <main class="manifestations">
+    <nav class="manifestations__nav">
+      <a class="manifestations__back" href="/">&larr; Olli Payne</a>
+    </nav>
+    <h1 class="manifestations__title">Manifestations</h1>
+
+    <ol class="manifestations__list" data-manifestations>
+      <!-- Source order doesn't matter — JS sorts at load:
+           percent entries first (highest % first), then dated (newest first).
+           Replace href="#" with the destination as each entry gets a page or link. -->
+
+      <li class="manifest-entry" data-percent="89">
+        <div class="manifest-entry__row">
+          <span class="manifest-entry__meta">In Progress</span>
+          <span class="manifest-entry__title">Kaizo Ironmon Challenge</span>
+          <span class="manifest-entry__indicator">
+            <span class="manifest-entry__bar"><span class="manifest-entry__bar-fill" style="width: 89%"></span></span>
+            <span class="manifest-entry__pct">89%</span>
+          </span>
+        </div>
+      </li>
+
+      <li class="manifest-entry" data-percent="47">
+        <div class="manifest-entry__row">
+          <span class="manifest-entry__meta">In Progress</span>
+          <span class="manifest-entry__title">The Time I Was Legally Kidnapped and Sent to Live in a Cult &mdash; a true story</span>
+          <span class="manifest-entry__indicator">
+            <span class="manifest-entry__bar"><span class="manifest-entry__bar-fill" style="width: 47%"></span></span>
+            <span class="manifest-entry__pct">47%</span>
+          </span>
+        </div>
+      </li>
+
+      <li class="manifest-entry" data-percent="15">
+        <div class="manifest-entry__row">
+          <span class="manifest-entry__meta">In Progress</span>
+          <span class="manifest-entry__title">FLW Mediations</span>
+          <span class="manifest-entry__indicator">
+            <span class="manifest-entry__bar"><span class="manifest-entry__bar-fill" style="width: 15%"></span></span>
+            <span class="manifest-entry__pct">15%</span>
+          </span>
+        </div>
+      </li>
+
+      <li class="manifest-entry" data-percent="14">
+        <div class="manifest-entry__row">
+          <span class="manifest-entry__meta">In Progress</span>
+          <span class="manifest-entry__title">The Pantheon in Palettes</span>
+          <span class="manifest-entry__indicator">
+            <span class="manifest-entry__bar"><span class="manifest-entry__bar-fill" style="width: 14%"></span></span>
+            <span class="manifest-entry__pct">14%</span>
+          </span>
+        </div>
+      </li>
+
+      <li class="manifest-entry" data-date="2026-04-19">
+        <a class="manifest-entry__row" href="#">
+          <span class="manifest-entry__meta">Apr 19, 2026</span>
+          <span class="manifest-entry__title">Qubie News</span>
+          <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+
+      <li class="manifest-entry" data-date="2026-04-15">
+        <a class="manifest-entry__row" href="#">
+          <span class="manifest-entry__meta">Apr 15, 2026</span>
+          <span class="manifest-entry__title">Gradiatron 3000</span>
+          <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+
+      <li class="manifest-entry" data-date="2025-07-25">
+        <a class="manifest-entry__row" href="#">
+          <span class="manifest-entry__meta">Jul 25, 2025</span>
+          <span class="manifest-entry__title">OVAMANNER</span>
+          <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+
+      <li class="manifest-entry" data-date="2025-07-15">
+        <a class="manifest-entry__row" href="#">
+          <span class="manifest-entry__meta">Jul 15, 2025</span>
+          <span class="manifest-entry__title">Rule 90 Admiral&rsquo;s Vest</span>
+          <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+
+      <li class="manifest-entry" data-date="2025-05-22">
+        <a class="manifest-entry__row" href="#">
+          <span class="manifest-entry__meta">May 22, 2025</span>
+          <span class="manifest-entry__title">a nice space for myself</span>
+          <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+
+      <li class="manifest-entry" data-date="2025-04-01">
+        <a class="manifest-entry__row" href="#">
+          <span class="manifest-entry__meta">Apr 1, 2025</span>
+          <span class="manifest-entry__title">Crippling Anxiety</span>
+          <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+
+      <li class="manifest-entry" data-date="2024-06-13">
+        <a class="manifest-entry__row" href="#">
+          <span class="manifest-entry__meta">Jun 13, 2024</span>
+          <span class="manifest-entry__title">[REDACTED] Architectural Project</span>
+          <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+
+      <li class="manifest-entry" data-date="2023-11-27">
+        <a class="manifest-entry__row" href="#">
+          <span class="manifest-entry__meta">Nov 27, 2023</span>
+          <span class="manifest-entry__title">The Altese Fulcrum</span>
+          <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+
+      <li class="manifest-entry" data-date="2023-06-09">
+        <a class="manifest-entry__row" href="#">
+          <span class="manifest-entry__meta">Jun 9, 2023</span>
+          <span class="manifest-entry__title">Updog</span>
+          <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+    </ol>
+  </main>
+  <script src="/script.js?v=26"></script>
+</body>
+</html>

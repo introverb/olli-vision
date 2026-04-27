@@ -1,3 +1,25 @@
+// Manifestations page: sort entries on load. Percent (in-progress) entries
+// go first, sorted by % descending (closer to done at top). Dated entries
+// follow, sorted newest first (ISO date strings sort lexicographically).
+// Source order in the HTML doesn't matter — drop new entries anywhere.
+(() => {
+  const list = document.querySelector("[data-manifestations]");
+  if (!list) return;
+  const items = Array.from(list.children);
+  items.sort((a, b) => {
+    const aPct = a.dataset.percent;
+    const bPct = b.dataset.percent;
+    const aDate = a.dataset.date;
+    const bDate = b.dataset.date;
+    if (aPct && !bPct) return -1;
+    if (!aPct && bPct) return 1;
+    if (aPct && bPct) return Number(bPct) - Number(aPct);
+    if (aDate && bDate) return bDate.localeCompare(aDate);
+    return 0;
+  });
+  for (const item of items) list.appendChild(item);
+})();
+
 // HUD: live NYC local clock for the Identity panel (only piece of live data).
 (() => {
   function updateClock() {
