@@ -796,10 +796,11 @@ body.page-entry {
   align-items: start;
 }
 
-/* Prose / subhead / attribution sit in the middle column by default. */
+/* Prose and the subhead block sit in the middle column by default. The
+   subhead block wraps subhead + attribution so they keep their normal
+   internal margins (the grid row-gap doesn't intrude between them). */
 .entry__body > p,
-.entry__body > h2.entry__subhead,
-.entry__body > .entry__attribution {
+.entry__body > .entry__subhead-block {
   grid-column: 2;
 }
 
@@ -964,8 +965,7 @@ body.page-entry {
     grid-template-columns: 1fr;
   }
   .entry__body > p,
-  .entry__body > h2.entry__subhead,
-  .entry__body > .entry__attribution,
+  .entry__body > .entry__subhead-block,
   .entry__fig--frame-l,
   .entry__fig--frame-r,
   .entry__fig--frame-l-wide,
