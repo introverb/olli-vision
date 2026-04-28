@@ -864,10 +864,11 @@ body.page-entry {
 }
 
 /* Sizes — percentages of the 760px text column */
-.entry__fig--xs  { width: 22%; }
+.entry__fig--xs  { width: 20%; }
 .entry__fig--sm  { width: 30%; }
 .entry__fig--md  { width: 42%; }
 .entry__fig--lg  { width: 58%; }
+.entry__fig--xl  { width: 75%; }
 
 /* Wide breakout — pushes past the column. Negative margin extends ~120px each side. */
 .entry__fig--wide {
@@ -878,20 +879,16 @@ body.page-entry {
   shape-outside: none;
 }
 
-/* Outset — pair with --left or --right to extend the image past the column edge.
-   Text continues to wrap against the inner edge via shape-outside. */
-.entry__fig--outset {
-  width: calc(100% + 140px);
-}
-.entry__fig--outset.entry__fig--left  { margin-left:  -140px; }
-.entry__fig--outset.entry__fig--right { margin-right: -140px; }
+/* Outset — pair with --left or --right to push a floated image past the
+   column edge. The size class still controls the image's width; outset
+   only shifts position via negative margin, so a small image can escape
+   the column without growing. */
+.entry__fig--outset.entry__fig--left  { margin-left:  -110px; }
+.entry__fig--outset.entry__fig--right { margin-right: -110px; }
 
 /* Outset-far — bigger push past the column for stronger horizontal scatter. */
-.entry__fig--outset-far {
-  width: calc(100% + 220px);
-}
-.entry__fig--outset-far.entry__fig--left  { margin-left:  -220px; }
-.entry__fig--outset-far.entry__fig--right { margin-right: -220px; }
+.entry__fig--outset-far.entry__fig--left  { margin-left:  -190px; }
+.entry__fig--outset-far.entry__fig--right { margin-right: -190px; }
 
 /* Closer — column-width block-level image, clears any floats above. Use as
    the final figure on a page so it reads as a closing cap. */
@@ -936,10 +933,8 @@ body.page-entry {
   .entry__fig--xs,
   .entry__fig--sm,
   .entry__fig--md,
-  .entry__fig--lg {
-    width: 100%;
-  }
-  .entry__fig--outset-far {
+  .entry__fig--lg,
+  .entry__fig--xl {
     width: 100%;
   }
   .entry__fig--outset-far.entry__fig--left,
