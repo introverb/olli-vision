@@ -864,8 +864,9 @@ body.page-entry {
 }
 
 /* Sizes — percentages of the 760px text column */
-.entry__fig--sm  { width: 32%; }
-.entry__fig--md  { width: 44%; }
+.entry__fig--xs  { width: 22%; }
+.entry__fig--sm  { width: 30%; }
+.entry__fig--md  { width: 42%; }
 .entry__fig--lg  { width: 58%; }
 
 /* Wide breakout — pushes past the column. Negative margin extends ~120px each side. */
@@ -884,6 +885,13 @@ body.page-entry {
 }
 .entry__fig--outset.entry__fig--left  { margin-left:  -140px; }
 .entry__fig--outset.entry__fig--right { margin-right: -140px; }
+
+/* Outset-far — bigger push past the column for stronger horizontal scatter. */
+.entry__fig--outset-far {
+  width: calc(100% + 220px);
+}
+.entry__fig--outset-far.entry__fig--left  { margin-left:  -220px; }
+.entry__fig--outset-far.entry__fig--right { margin-right: -220px; }
 
 /* Closer — column-width block-level image, clears any floats above. Use as
    the final figure on a page so it reads as a closing cap. */
@@ -925,10 +933,19 @@ body.page-entry {
     width: 100%;
     margin: 2em 0;
   }
+  .entry__fig--xs,
   .entry__fig--sm,
   .entry__fig--md,
   .entry__fig--lg {
     width: 100%;
+  }
+  .entry__fig--outset-far {
+    width: 100%;
+  }
+  .entry__fig--outset-far.entry__fig--left,
+  .entry__fig--outset-far.entry__fig--right {
+    margin-left: 0;
+    margin-right: 0;
   }
   .entry__fig--tilt-l,
   .entry__fig--tilt-r,
