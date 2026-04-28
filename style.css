@@ -1122,6 +1122,42 @@ body.page-entry--fixed {
   line-height: 1.55;
 }
 
+/* Drop the entry's positioning context so absolute scatter children
+   reference the viewport directly. Text containers raise above the
+   scattered images via z-index. */
+.page-entry--fixed .entry {
+  position: static;
+}
+
+.page-entry--fixed .entry__nav,
+.page-entry--fixed .entry__header,
+.page-entry--fixed .entry__body {
+  position: relative;
+  z-index: 2;
+}
+
+/* Scatter figures — each one positioned absolutely against the
+   viewport via inline top/left/right/bottom + height. Width auto
+   from the image's natural aspect. */
+.page-entry--fixed .entry__scatter-fig {
+  position: absolute;
+  margin: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.page-entry--fixed .entry__scatter-fig img {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+@media (max-width: 900px) {
+  .page-entry--fixed .entry__scatter-fig {
+    display: none;
+  }
+}
+
 /* ========== Single-viewport collage variant (page-entry--collage) ==========
    For entry pages that want everything visible without scrolling. Layout:
    compact header on top, then a 3-column body — prose + side-callout
