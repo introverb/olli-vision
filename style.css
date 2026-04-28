@@ -910,6 +910,19 @@ body.page-entry {
   margin: 4em 0 0;
 }
 
+/* Inset-left — wedges a small figure into the left side of the body text.
+   Negative top margin lifts it up beside the subhead block; negative left
+   margin pushes it slightly past the prose's left edge. Prose wraps along
+   its right margin-box so the rotation creates a triangular indent feel. */
+.entry__fig--inset-l {
+  float: left;
+  clear: left;
+  width: 33%;
+  max-width: 240px;
+  margin: -5em 1.5em 1em -1.5em;
+  shape-outside: margin-box;
+}
+
 /* Slight hand-placed rotations */
 .entry__fig--tilt-l { transform: rotate(-2deg); }
 .entry__fig--tilt-r { transform: rotate(1.8deg); }
@@ -936,6 +949,12 @@ body.page-entry {
 
 /* Mobile: leftover float-era modifiers collapse to in-flow blocks. */
 @media (max-width: 700px) {
+  .entry__fig--inset-l {
+    float: none;
+    width: 100%;
+    max-width: none;
+    margin: 2em 0;
+  }
   .entry__fig--left,
   .entry__fig--right,
   .entry__fig--wide {
