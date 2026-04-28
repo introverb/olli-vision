@@ -1132,13 +1132,15 @@ body.page-entry--collage {
   margin: 0;
 }
 
-/* Body: prose stays left in its own narrow column (matching the
-   standard entry layout). Images take the entire right side as a
-   collage, sharing it with their callout captions. */
+/* Body: prose centered in the middle, image collages flanking left
+   and right so the text is surrounded. Each side collage stacks 3
+   figures vertically with side callout captions pointing INWARD
+   toward the prose (right-side captions on the left collage,
+   left-side captions on the right collage). */
 .page-entry--collage .entry__body {
   display: grid;
-  grid-template-columns: minmax(0, 540px) 1fr;
-  column-gap: 3vw;
+  grid-template-columns: 1fr minmax(0, 540px) 1fr;
+  column-gap: 2.6vw;
   align-items: start;
   min-height: 0;
   overflow: hidden;
@@ -1146,7 +1148,7 @@ body.page-entry--collage {
 
 .page-entry--collage .entry__subhead-block,
 .page-entry--collage .entry__body > p {
-  grid-column: 1;
+  grid-column: 2;
   margin: 0;
   max-width: 540px;
 }
@@ -1160,19 +1162,23 @@ body.page-entry--collage {
   margin-top: 1em;
 }
 
-/* Image collage takes the entire right side of the body. Sub-grid:
-   2 columns x 3 rows. Each cell holds a figure where the image and
-   its caption sit side-by-side — caption on the inner side of the
-   left column (between prose and image), and on the outer side of
-   the right column (far right margin). */
+/* Each side collage is a single column of 3 figures, full height. */
 .page-entry--collage .entry__collage {
-  grid-column: 2;
-  grid-row: 1 / -1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
   grid-auto-rows: 1fr;
-  gap: 1.6vh 1.4vw;
+  gap: 1.6vh;
   min-height: 0;
+  align-self: stretch;
+}
+
+.page-entry--collage .entry__collage--left {
+  grid-column: 1;
+  grid-row: 1 / -1;
+}
+
+.page-entry--collage .entry__collage--right {
+  grid-column: 3;
+  grid-row: 1 / -1;
 }
 
 .page-entry--collage .entry__collage > figure {
