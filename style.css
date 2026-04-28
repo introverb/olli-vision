@@ -1105,11 +1105,11 @@ body.page-entry--fixed {
 }
 
 .page-entry--fixed .entry__nav {
-  margin-bottom: 3vh;
+  margin-bottom: 5vh;
 }
 
 .page-entry--fixed .entry__header {
-  margin-bottom: 3vh;
+  margin-bottom: 5vh;
 }
 
 .page-entry--fixed .entry__title {
@@ -1117,9 +1117,17 @@ body.page-entry--fixed {
   font-size: clamp(2rem, 5.4vw, 4.6rem);
 }
 
+.page-entry--fixed .entry__subhead-block {
+  margin-bottom: 2.5vh;
+}
+
 .page-entry--fixed .entry__body > p {
   font-size: clamp(0.85rem, 1.55vh, 1rem);
   line-height: 1.55;
+}
+
+.page-entry--fixed .entry__body > p + p {
+  margin-top: 1.4em;
 }
 
 /* Drop the entry's positioning context so absolute scatter children
