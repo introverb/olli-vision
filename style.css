@@ -920,10 +920,14 @@ body.page-entry {
 .entry__fig--inset-l {
   float: left;
   clear: left;
-  width: 33%;
-  max-width: 240px;
-  margin: 0 0 1em -250px;
-  shape-outside: polygon(0% 0%, 84% 0%, 115% 78%, 30% 100%, 0% 100%);
+  width: 220px;
+  margin: -3em 0 1em -240px;
+  /* Polygon traces the actual rotated rectangle of a 220x330 image at
+     -22deg (image is 453x679 native, scaled to 220 wide → 330 tall),
+     then drops to a wide caption-area rectangle below. Pixel coords
+     instead of percentages so caption height variation doesn't shift
+     the wrap line off the image edge. */
+  shape-outside: polygon(0px 0px, 162px 0px, 274px 277px, 142px 330px, 220px 330px, 220px 999px, 0px 999px);
   transform: rotate(-22deg);
 }
 
