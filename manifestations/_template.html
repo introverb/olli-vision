@@ -1,0 +1,59 @@
+<!--
+  Manifestation entry template.
+
+  Copy this file into a new sub-folder, e.g.:
+      manifestations/<entry-slug>/index.html
+
+  Then edit:
+    - <title>                — page tab name
+    - .entry__date           — YYYY.MM.DD
+    - .entry__title          — entry title (Agelast caps)
+    - .entry__subhead        — section subhead (e.g. program name)
+    - .entry__attribution    — institution / context line
+    - body content           — figures + prose, scattered as needed
+
+  Cache buster on /style.css?v=N — bump if you change the stylesheet.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ENTRY TITLE &middot; Olli Payne</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noticia+Text:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css?v=56" />
+</head>
+<body class="page-entry">
+  <main class="entry">
+    <nav class="entry__nav">
+      <a class="entry__back" href="/manifestations/">&larr; Manifestations</a>
+    </nav>
+
+    <header class="entry__header">
+      <span class="entry__date">YYYY.MM.DD</span>
+      <h1 class="entry__title">Entry Title</h1>
+    </header>
+
+    <article class="entry__body">
+      <h2 class="entry__subhead">Subhead</h2>
+      <p class="entry__attribution">Institution or context line</p>
+
+      <!-- Body content goes here.
+           Available figure modifiers (combine as needed):
+             .entry__fig                 — plain block-level, column width
+             .entry__fig--left            — float left, prose wraps right
+             .entry__fig--right           — float right, prose wraps left
+             .entry__fig--sm / --md / --lg
+             .entry__fig--outset          — extend past column on the float side
+             .entry__fig--wide            — full breakout, no text wrap
+             .entry__fig--tilt-l / --tilt-r / --tilt-l-soft
+
+           For paired side-by-side figures, wrap them in:
+             <div class="entry__scatter"> ... </div>
+      -->
+    </article>
+  </main>
+</body>
+</html>

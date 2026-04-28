@@ -830,7 +830,7 @@ body.page-entry {
 /* ---- Editorial figure scatter (entry sub-pages) ---- */
 
 .entry__fig {
-  margin: 0;
+  margin: 2em 0;
   padding: 0;
 }
 
@@ -884,6 +884,13 @@ body.page-entry {
 }
 .entry__fig--outset.entry__fig--left  { margin-left:  -140px; }
 .entry__fig--outset.entry__fig--right { margin-right: -140px; }
+
+/* Closer — column-width block-level image, clears any floats above. Use as
+   the final figure on a page so it reads as a closing cap. */
+.entry__fig--closer {
+  clear: both;
+  margin: 4em 0 0;
+}
 
 /* Slight hand-placed rotations */
 .entry__fig--tilt-l { transform: rotate(-2deg); }
