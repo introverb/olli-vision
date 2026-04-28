@@ -850,15 +850,19 @@ body.page-entry {
   line-height: 1.4;
 }
 
-/* Float sides — shape-outside lets prose hug the image edge cleanly */
+/* Float sides — shape-outside lets prose hug the image edge cleanly.
+   clear: both ensures each float starts below any prior float so figures
+   never overlap vertically (especially important with tilts). */
 .entry__fig--left {
   float: left;
+  clear: both;
   margin: 0.4em 1.6em 1.2em 0;
   shape-outside: margin-box;
 }
 
 .entry__fig--right {
   float: right;
+  clear: both;
   margin: 0.4em 0 1.2em 1.6em;
   shape-outside: margin-box;
 }
