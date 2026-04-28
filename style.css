@@ -851,18 +851,19 @@ body.page-entry {
 }
 
 /* Float sides — shape-outside lets prose hug the image edge cleanly.
-   clear: both ensures each float starts below any prior float so figures
-   never overlap vertically (especially important with tilts). */
+   Same-side clear prevents two left or two right floats from stacking
+   into each other, but a left and a right can still coexist so prose
+   weaves between them. */
 .entry__fig--left {
   float: left;
-  clear: both;
+  clear: left;
   margin: 0.4em 1.6em 1.2em 0;
   shape-outside: margin-box;
 }
 
 .entry__fig--right {
   float: right;
-  clear: both;
+  clear: right;
   margin: 0.4em 0 1.2em 1.6em;
   shape-outside: margin-box;
 }
