@@ -492,7 +492,7 @@ body::before {
     margin-top: 1.4em;
     opacity: 1;
     pointer-events: auto;
-    font-size: 1.1em;
+    font-size: 0.55em;
   }
 
   .panel.is-active .panel__cta {
@@ -529,7 +529,7 @@ body::before {
   align-items: baseline;
   gap: 0.5em;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 1.56em;
+  font-size: 0.78em;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(230, 226, 214, 0.95);
