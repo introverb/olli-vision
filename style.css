@@ -790,10 +790,9 @@ body.page-entry {
   color: rgba(230, 226, 214, 0.88);
 }
 
-/* Prose + subhead block — left-aligned to match the entry title's left
-   edge, with a max-width so lines stay at a comfortable reading measure
-   and there's natural whitespace on the right. */
-.entry__body > p,
+/* Prose runs the full body width so floats have room to wrap on either
+   side. Subhead block keeps a max-width so the header pair sits compact
+   above the chaos rather than spanning all the way across. */
 .entry__body > .entry__subhead-block {
   max-width: 540px;
 }
