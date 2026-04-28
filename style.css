@@ -861,6 +861,14 @@ body.page-entry {
   shape-outside: none;
 }
 
+/* Outset — pair with --left or --right to extend the image past the column edge.
+   Text continues to wrap against the inner edge via shape-outside. */
+.entry__fig--outset {
+  width: calc(100% + 140px);
+}
+.entry__fig--outset.entry__fig--left  { margin-left:  -140px; }
+.entry__fig--outset.entry__fig--right { margin-right: -140px; }
+
 /* Slight hand-placed rotations */
 .entry__fig--tilt-l { transform: rotate(-2deg); }
 .entry__fig--tilt-r { transform: rotate(1.8deg); }
