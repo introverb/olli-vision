@@ -1088,6 +1088,40 @@ body.page-entry {
   }
 }
 
+/* ========== Fixed-viewport entry variant (page-entry--fixed) ==========
+   Locks the page to a single viewport height, no scrolling. Text-only
+   layout — header, subhead, and prose all fit within 100vh. */
+
+body.page-entry--fixed {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.page-entry--fixed .entry {
+  height: 100vh;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+  box-sizing: border-box;
+}
+
+.page-entry--fixed .entry__nav {
+  margin-bottom: 3vh;
+}
+
+.page-entry--fixed .entry__header {
+  margin-bottom: 3vh;
+}
+
+.page-entry--fixed .entry__title {
+  /* Smaller cap so two-line titles don't push prose off the bottom. */
+  font-size: clamp(2rem, 5.4vw, 4.6rem);
+}
+
+.page-entry--fixed .entry__body > p {
+  font-size: clamp(0.85rem, 1.55vh, 1rem);
+  line-height: 1.55;
+}
+
 /* ========== Single-viewport collage variant (page-entry--collage) ==========
    For entry pages that want everything visible without scrolling. Layout:
    compact header on top, then a 3-column body — prose + side-callout
