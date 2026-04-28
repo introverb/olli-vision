@@ -850,6 +850,16 @@ body.page-entry {
   line-height: 1;
 }
 
+/* Agelast doesn't include numeral glyphs, so digits fall through to the
+   serif fallback and render a lot heavier than the letterforms. Wrap any
+   numbers inside an entry title with this span to swap in a thin sans
+   that visually matches Agelast's weight. */
+.entry__title-num {
+  font-family: "Helvetica Neue", Helvetica, system-ui, sans-serif;
+  font-weight: 100;
+  letter-spacing: 0;
+}
+
 .entry__body {
   font-family: "Noticia Text", Georgia, serif;
   font-size: clamp(1rem, 1.7vh, 1.15rem);
