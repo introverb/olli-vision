@@ -748,6 +748,31 @@ a.manifest-entry__row[href="#"] .manifest-entry__indicator--arrow {
   font-variant-numeric: tabular-nums;
 }
 
+/* Blurb shown below in-progress entry rows (no clickthrough, so the
+   description lives inline). Padding-bottom rather than margin so it
+   sits flush against the next entry's top border. */
+.manifest-entry__blurb {
+  padding: 0 0 1.6em 0;
+  max-width: 640px;
+}
+
+.manifest-entry__blurb p {
+  font-family: "Noticia Text", Georgia, serif;
+  font-size: clamp(0.9rem, 1.6vh, 1rem);
+  line-height: 1.55;
+  color: rgba(230, 226, 214, 0.7);
+  margin: 0 0 0.8em 0;
+}
+
+.manifest-entry__blurb-stat {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(230, 226, 214, 0.5);
+}
+
 @media (max-width: 480px) {
   /* On very narrow screens, give the bar less width so the row doesn't crowd */
   .manifest-entry__bar {
