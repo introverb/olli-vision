@@ -1146,7 +1146,8 @@ body.page-entry--fixed {
 
 /* Scatter figures — each one positioned absolutely against the
    viewport via inline top/left/right/bottom + height. Width auto
-   from the image's natural aspect. */
+   from the image's natural aspect. Rotation on the IMG only so the
+   figcaption callout stays straight and readable. */
 .page-entry--fixed .entry__scatter-fig {
   position: absolute;
   margin: 0;
@@ -1158,6 +1159,50 @@ body.page-entry--fixed {
   display: block;
   height: 100%;
   width: auto;
+}
+
+/* Caption callout — sits outside the image on the far side, anchored
+   vertically to the image's center, joined by a small leader dash. */
+.page-entry--fixed .entry__scatter-fig figcaption {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(230, 226, 214, 0.55);
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
+/* Right-side figures: caption hangs to the right of the image. */
+.page-entry--fixed .entry__scatter-fig--side-r figcaption {
+  left: calc(100% + 1em);
+  padding-left: 0.6em;
+}
+.page-entry--fixed .entry__scatter-fig--side-r figcaption::before {
+  content: "";
+  position: absolute;
+  left: -0.7em;
+  top: 50%;
+  width: 0.7em;
+  border-top: 1px solid rgba(230, 226, 214, 0.4);
+}
+
+/* Left-side figures: caption hangs to the left of the image. */
+.page-entry--fixed .entry__scatter-fig--side-l figcaption {
+  right: calc(100% + 1em);
+  text-align: right;
+  padding-right: 0.6em;
+}
+.page-entry--fixed .entry__scatter-fig--side-l figcaption::before {
+  content: "";
+  position: absolute;
+  right: -0.7em;
+  top: 50%;
+  width: 0.7em;
+  border-top: 1px solid rgba(230, 226, 214, 0.4);
 }
 
 @media (max-width: 900px) {
