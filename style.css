@@ -761,7 +761,7 @@ body.page-entry {
 }
 
 .entry__header {
-  margin-bottom: 8vh;
+  margin-bottom: 3vh;
 }
 
 .entry__date {
@@ -803,10 +803,113 @@ body.page-entry {
   letter-spacing: -0.05em;
   text-transform: uppercase;
   color: rgba(230, 226, 214, 0.95);
-  margin-bottom: 1em;
+  margin-bottom: 0.4em;
   line-height: 1.1;
 }
 
 .entry__subhead + p {
   margin-top: 0;
+}
+
+/* ---- Editorial figure scatter (entry sub-pages) ---- */
+
+.entry__fig {
+  margin: 0;
+  padding: 0;
+}
+
+.entry__fig img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.entry__fig figcaption {
+  margin-top: 0.55em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(230, 226, 214, 0.45);
+  line-height: 1.4;
+}
+
+/* Float sides — shape-outside lets prose hug the image edge cleanly */
+.entry__fig--left {
+  float: left;
+  margin: 0.4em 1.6em 1.2em 0;
+  shape-outside: margin-box;
+}
+
+.entry__fig--right {
+  float: right;
+  margin: 0.4em 0 1.2em 1.6em;
+  shape-outside: margin-box;
+}
+
+/* Sizes — percentages of the 760px text column */
+.entry__fig--sm  { width: 32%; }
+.entry__fig--md  { width: 44%; }
+.entry__fig--lg  { width: 58%; }
+
+/* Wide breakout — pushes past the column. Negative margin extends ~120px each side. */
+.entry__fig--wide {
+  float: none;
+  clear: both;
+  width: calc(100% + 240px);
+  margin: 3.5em -120px 3em;
+  shape-outside: none;
+}
+
+/* Slight hand-placed rotations */
+.entry__fig--tilt-l { transform: rotate(-2deg); }
+.entry__fig--tilt-r { transform: rotate(1.8deg); }
+.entry__fig--tilt-l-soft { transform: rotate(-1deg); }
+
+/* Post-prose scatter zone — clears any lingering floats, then lets a couple
+   more figures sit side-by-side without text wrap. */
+.entry__scatter {
+  clear: both;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 2.5em 4%;
+  margin-top: 4em;
+}
+
+.entry__scatter .entry__fig {
+  float: none;
+  margin: 0;
+}
+
+.entry__scatter .entry__fig--sm { width: 38%; }
+.entry__scatter .entry__fig--md { width: 52%; }
+
+/* Mobile: collapse all floats and breakouts to in-flow blocks */
+@media (max-width: 700px) {
+  .entry__fig--left,
+  .entry__fig--right,
+  .entry__fig--wide {
+    float: none;
+    width: 100%;
+    margin: 2em 0;
+  }
+  .entry__fig--sm,
+  .entry__fig--md,
+  .entry__fig--lg {
+    width: 100%;
+  }
+  .entry__fig--tilt-l,
+  .entry__fig--tilt-r,
+  .entry__fig--tilt-l-soft {
+    transform: none;
+  }
+  .entry__scatter {
+    flex-direction: column;
+    gap: 2em;
+  }
+  .entry__scatter .entry__fig--sm,
+  .entry__scatter .entry__fig--md {
+    width: 100%;
+  }
 }
