@@ -1132,141 +1132,120 @@ body.page-entry--collage {
   margin: 0;
 }
 
-/* Body becomes a 3-col grid: left prose | center collage | right prose. */
+/* Body: prose stays left in its own narrow column (matching the
+   standard entry layout). Images take the entire right side as a
+   collage, sharing it with their callout captions. */
 .page-entry--collage .entry__body {
   display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr;
-  column-gap: 2.4vw;
-  row-gap: 2vh;
+  grid-template-columns: minmax(0, 540px) 1fr;
+  column-gap: 3vw;
   align-items: start;
   min-height: 0;
   overflow: hidden;
 }
 
-.page-entry--collage .entry__subhead-block {
-  grid-column: 1;
-  max-width: none;
-  margin: 0;
-}
-
-/* Prose paragraphs split across the side columns. */
+.page-entry--collage .entry__subhead-block,
 .page-entry--collage .entry__body > p {
-  font-size: clamp(0.78rem, 1.4vh, 0.95rem);
-  line-height: 1.55;
-  margin: 0;
-}
-
-.page-entry--collage .entry__body > p:nth-of-type(1) {
   grid-column: 1;
+  margin: 0;
+  max-width: 540px;
 }
 
-.page-entry--collage .entry__body > p:nth-of-type(2) {
-  grid-column: 3;
+.page-entry--collage .entry__body > p {
+  font-size: clamp(0.85rem, 1.5vh, 1rem);
+  line-height: 1.6;
 }
 
-/* Center collage cluster — three featured figures stacked. */
+.page-entry--collage .entry__body > p + p {
+  margin-top: 1em;
+}
+
+/* Image collage takes the entire right side of the body. Sub-grid:
+   2 columns x 3 rows. Each cell holds a figure where the image and
+   its caption sit side-by-side — caption on the inner side of the
+   left column (between prose and image), and on the outer side of
+   the right column (far right margin). */
 .page-entry--collage .entry__collage {
   grid-column: 2;
   grid-row: 1 / -1;
   display: grid;
-  grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5vh 1.2vw;
+  grid-auto-rows: 1fr;
+  gap: 1.6vh 1.4vw;
   min-height: 0;
 }
 
-.page-entry--collage .entry__collage figure {
+.page-entry--collage .entry__collage > figure {
   margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.7em;
   min-height: 0;
-  overflow: hidden;
 }
 
-.page-entry--collage .entry__collage img {
+.page-entry--collage .entry__collage > figure img {
   width: 100%;
   height: 100%;
+  max-height: 100%;
   object-fit: cover;
   display: block;
+  min-height: 0;
 }
 
-/* Specific cell placements for the collage so we get a non-uniform feel. */
-.page-entry--collage .entry__collage > figure:nth-of-type(1) {
-  grid-column: 1 / -1;
-  grid-row: 1;
-}
-.page-entry--collage .entry__collage > figure:nth-of-type(2) {
-  grid-column: 1;
-  grid-row: 2;
-}
-.page-entry--collage .entry__collage > figure:nth-of-type(3) {
-  grid-column: 2;
-  grid-row: 2;
-}
-
-/* Side callout figures — small thumbnail with caption beside it,
-   joined by a leader dash. Positioned in the side prose columns. */
-.page-entry--collage .entry__callout {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  align-items: start;
-  gap: 0.7em;
-  margin: 0;
-}
-
-.page-entry--collage .entry__callout--right {
-  grid-template-columns: 1fr 80px;
-}
-
-.page-entry--collage .entry__callout img {
-  width: 100%;
-  height: auto;
-  display: block;
-  grid-column: 1;
-}
-
-.page-entry--collage .entry__callout--right img {
-  grid-column: 2;
-}
-
-.page-entry--collage .entry__callout figcaption {
+.page-entry--collage .entry__collage > figure figcaption {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.62rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(230, 226, 214, 0.5);
+  color: rgba(230, 226, 214, 0.55);
   line-height: 1.45;
-  align-self: center;
   position: relative;
-  padding-left: 0.9em;
+  white-space: nowrap;
 }
 
-.page-entry--collage .entry__callout figcaption::before {
+/* Left collage column: image first (grid-column 1), caption tucked
+   to its LEFT (grid-column 0... can't do that — switch order via
+   grid-template-columns). Use a per-column layout class instead. */
+.page-entry--collage .entry__collage > figure.callout-l {
+  grid-template-columns: 1fr auto;
+}
+.page-entry--collage .entry__collage > figure.callout-l img {
+  grid-column: 1;
+  grid-row: 1;
+}
+.page-entry--collage .entry__collage > figure.callout-l figcaption {
+  grid-column: 2;
+  grid-row: 1;
+  padding-left: 0.9em;
+}
+.page-entry--collage .entry__collage > figure.callout-l figcaption::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.7em;
-  width: 0.5em;
+  top: 50%;
+  width: 0.6em;
   border-top: 1px solid rgba(230, 226, 214, 0.35);
 }
 
-.page-entry--collage .entry__callout--right figcaption {
-  grid-column: 1;
-  text-align: right;
-  padding-left: 0;
+.page-entry--collage .entry__collage > figure.callout-r {
+  grid-template-columns: 1fr auto;
+  direction: rtl;
+}
+.page-entry--collage .entry__collage > figure.callout-r > * {
+  direction: ltr;
+}
+.page-entry--collage .entry__collage > figure.callout-r figcaption {
   padding-right: 0.9em;
+  text-align: right;
 }
-
-.page-entry--collage .entry__callout--right figcaption::before {
-  left: auto;
+.page-entry--collage .entry__collage > figure.callout-r figcaption::before {
+  content: "";
+  position: absolute;
   right: 0;
-}
-
-/* Layout placement of callouts in the left/right prose columns —
-   auto-flow handles vertical stacking within each column. */
-.page-entry--collage .entry__callout {
-  grid-column: 1;
-}
-.page-entry--collage .entry__callout--right {
-  grid-column: 3;
+  top: 50%;
+  width: 0.6em;
+  border-top: 1px solid rgba(230, 226, 214, 0.35);
 }
 
 /* On narrow screens, fall back to the standard scrolling layout —
