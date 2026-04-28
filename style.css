@@ -1087,3 +1087,203 @@ body.page-entry {
     width: 100%;
   }
 }
+
+/* ========== Single-viewport collage variant (page-entry--collage) ==========
+   For entry pages that want everything visible without scrolling. Layout:
+   compact header on top, then a 3-column body — prose + side-callout
+   thumbnails flanking a centered image collage. Figcaptions sit beside
+   their image with a connector dash, magazine-style. */
+
+body.page-entry--collage {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.page-entry--collage .entry {
+  height: 100vh;
+  max-width: 1500px;
+  padding: 3.5vh min(4vw, 2.5rem) 3vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  row-gap: 2vh;
+}
+
+.page-entry--collage .entry__nav {
+  margin: 0;
+}
+
+.page-entry--collage .entry__header {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: end;
+  column-gap: 2vw;
+}
+
+.page-entry--collage .entry__date {
+  margin: 0;
+  align-self: end;
+  padding-bottom: 0.6em;
+}
+
+.page-entry--collage .entry__title {
+  font-size: clamp(1.8rem, 4.4vw, 3.6rem);
+  margin: 0;
+}
+
+/* Body becomes a 3-col grid: left prose | center collage | right prose. */
+.page-entry--collage .entry__body {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  column-gap: 2.4vw;
+  row-gap: 2vh;
+  align-items: start;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.page-entry--collage .entry__subhead-block {
+  grid-column: 1;
+  max-width: none;
+  margin: 0;
+}
+
+/* Prose paragraphs split across the side columns. */
+.page-entry--collage .entry__body > p {
+  font-size: clamp(0.78rem, 1.4vh, 0.95rem);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.page-entry--collage .entry__body > p:nth-of-type(1) {
+  grid-column: 1;
+}
+
+.page-entry--collage .entry__body > p:nth-of-type(2) {
+  grid-column: 3;
+}
+
+/* Center collage cluster — three featured figures stacked. */
+.page-entry--collage .entry__collage {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5vh 1.2vw;
+  min-height: 0;
+}
+
+.page-entry--collage .entry__collage figure {
+  margin: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.page-entry--collage .entry__collage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Specific cell placements for the collage so we get a non-uniform feel. */
+.page-entry--collage .entry__collage > figure:nth-of-type(1) {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+.page-entry--collage .entry__collage > figure:nth-of-type(2) {
+  grid-column: 1;
+  grid-row: 2;
+}
+.page-entry--collage .entry__collage > figure:nth-of-type(3) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* Side callout figures — small thumbnail with caption beside it,
+   joined by a leader dash. Positioned in the side prose columns. */
+.page-entry--collage .entry__callout {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  align-items: start;
+  gap: 0.7em;
+  margin: 0;
+}
+
+.page-entry--collage .entry__callout--right {
+  grid-template-columns: 1fr 80px;
+}
+
+.page-entry--collage .entry__callout img {
+  width: 100%;
+  height: auto;
+  display: block;
+  grid-column: 1;
+}
+
+.page-entry--collage .entry__callout--right img {
+  grid-column: 2;
+}
+
+.page-entry--collage .entry__callout figcaption {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(230, 226, 214, 0.5);
+  line-height: 1.45;
+  align-self: center;
+  position: relative;
+  padding-left: 0.9em;
+}
+
+.page-entry--collage .entry__callout figcaption::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 0.5em;
+  border-top: 1px solid rgba(230, 226, 214, 0.35);
+}
+
+.page-entry--collage .entry__callout--right figcaption {
+  grid-column: 1;
+  text-align: right;
+  padding-left: 0;
+  padding-right: 0.9em;
+}
+
+.page-entry--collage .entry__callout--right figcaption::before {
+  left: auto;
+  right: 0;
+}
+
+/* Layout placement of callouts in the left/right prose columns —
+   auto-flow handles vertical stacking within each column. */
+.page-entry--collage .entry__callout {
+  grid-column: 1;
+}
+.page-entry--collage .entry__callout--right {
+  grid-column: 3;
+}
+
+/* On narrow screens, fall back to the standard scrolling layout —
+   collage doesn't survive a phone width. */
+@media (max-width: 900px) {
+  body.page-entry--collage {
+    overflow: auto;
+    height: auto;
+  }
+  .page-entry--collage .entry,
+  .page-entry--collage .entry__body,
+  .page-entry--collage .entry__collage {
+    display: block;
+    height: auto;
+  }
+  .page-entry--collage .entry__collage figure,
+  .page-entry--collage .entry__callout {
+    margin-bottom: 2vh;
+  }
+}
