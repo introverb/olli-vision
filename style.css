@@ -802,8 +802,8 @@ body.page-entry {
   font-size: clamp(1.4rem, 3.5vw, 2.2rem);
   text-transform: uppercase;
   color: rgba(230, 226, 214, 0.95);
-  margin-bottom: 0.4em;
-  line-height: 1.1;
+  margin-bottom: 0;
+  line-height: 1;
 }
 
 .entry__subhead + p {
@@ -824,7 +824,7 @@ body.page-entry {
 }
 
 .entry__subhead + .entry__attribution {
-  margin-top: 0.1em;
+  margin-top: -0.2em;
 }
 
 /* ---- Editorial figure scatter (entry sub-pages) ---- */
