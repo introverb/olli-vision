@@ -921,14 +921,27 @@ body.page-entry {
   float: left;
   clear: left;
   width: 220px;
+  padding-right: 80px;
+  height: 410px;
   margin: -3em 0 1em -240px;
-  /* Polygon traces the actual rotated rectangle of a 220x330 image at
-     -22deg (image is 453x679 native, scaled to 220 wide → 330 tall),
-     then drops to a wide caption-area rectangle below. Pixel coords
-     instead of percentages so caption height variation doesn't shift
-     the wrap line off the image edge. */
-  shape-outside: polygon(0px 0px, 162px 0px, 274px 277px, 142px 330px, 220px 330px, 220px 999px, 0px 999px);
+  /* Polygon traces the rotated rectangle of a 220x330 image at -22deg
+     (image is 453x679 native, scaled to 220 wide → 330 tall) then
+     drops to a caption-area rectangle below. Right padding extends
+     the figure's margin-box to 300px so the polygon's BR corner at
+     x=274 stays inside the reference box (browsers honor polygon
+     coords most reliably within the box). */
+  shape-outside: polygon(0px 0px, 162px 0px, 274px 277px, 142px 330px, 300px 330px, 300px 410px, 0px 410px);
+}
+
+/* Rotation lives on the IMG, not the figure, so the figure doesn't create
+   a stacking context — that was making the rotated image paint on top of
+   the prose where they overlap. */
+.entry__fig--inset-l > img {
+  display: block;
+  width: 220px;
+  height: auto;
   transform: rotate(-22deg);
+  transform-origin: center;
 }
 
 /* Slight hand-placed rotations */
