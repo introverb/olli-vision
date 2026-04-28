@@ -788,10 +788,39 @@ body.page-entry {
   font-size: clamp(1rem, 1.7vh, 1.15rem);
   line-height: 1.65;
   color: rgba(230, 226, 214, 0.88);
+  /* 3-column grid: side gutters frame a narrow prose column. */
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 380px) 1fr;
+  column-gap: 1.5em;
+  row-gap: 1.6em;
+  align-items: start;
 }
 
+/* Prose / subhead / attribution sit in the middle column by default. */
+.entry__body > p,
+.entry__body > h2.entry__subhead,
+.entry__body > .entry__attribution {
+  grid-column: 2;
+}
+
+/* Plain figures span all three columns (column-width). */
+.entry__body > .entry__fig {
+  grid-column: 1 / -1;
+}
+
+/* Frame placements — side gutters and wider variants. */
+.entry__fig--frame-l       { grid-column: 1; }
+.entry__fig--frame-r       { grid-column: 3; }
+.entry__fig--frame-l-wide  { grid-column: 1 / 3; }
+.entry__fig--frame-r-wide  { grid-column: 2 / 4; }
+
+/* Per-figure vertical offsets for a jagged frame rhythm. */
+.entry__fig--offset-down-sm { margin-top: 1.5em; }
+.entry__fig--offset-down-md { margin-top: 3em; }
+.entry__fig--offset-up-sm   { margin-top: -1em; }
+
 .entry__body p + p {
-  margin-top: 1em;
+  margin-top: 0;
 }
 
 /* Section subhead — smaller Agelast at the font's default spacing. */
@@ -926,8 +955,26 @@ body.page-entry {
 .entry__scatter .entry__fig--sm { width: 38%; }
 .entry__scatter .entry__fig--md { width: 52%; }
 
-/* Mobile: collapse all floats and breakouts to in-flow blocks */
+/* Mobile: collapse the 3-column grid to a single column and any leftover
+   float-era modifiers to in-flow blocks. */
 @media (max-width: 700px) {
+  .entry__body {
+    grid-template-columns: 1fr;
+  }
+  .entry__body > p,
+  .entry__body > h2.entry__subhead,
+  .entry__body > .entry__attribution,
+  .entry__fig--frame-l,
+  .entry__fig--frame-r,
+  .entry__fig--frame-l-wide,
+  .entry__fig--frame-r-wide {
+    grid-column: 1;
+  }
+  .entry__fig--offset-down-sm,
+  .entry__fig--offset-down-md,
+  .entry__fig--offset-up-sm {
+    margin-top: 0;
+  }
   .entry__fig--left,
   .entry__fig--right,
   .entry__fig--wide {
