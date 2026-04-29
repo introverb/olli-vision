@@ -931,6 +931,13 @@ body.page-entry {
   letter-spacing: 0;
 }
 
+/* Thin first "I" in an entry title gets isolated breathing room so it
+   doesn't get crushed into its thicker neighbors at the negative
+   letter-spacing the title uses (mirrors .manifestations__title-i). */
+.entry__title-i {
+  padding: 0 0.06em;
+}
+
 .entry__body {
   font-family: "Noticia Text", Georgia, serif;
   font-size: clamp(1rem, 1.7vh, 1.15rem);
