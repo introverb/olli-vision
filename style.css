@@ -849,6 +849,12 @@ summary.manifest-entry__row:hover .manifest-entry__chevron::after {
   margin-top: 0.6em;
 }
 
+/* Warning variant — dark red so it actually reads as a heads-up
+   instead of blending into the rest of the HUD readouts. */
+.manifest-entry__blurb-stat--warning {
+  color: #c14b4b;
+}
+
 @media (max-width: 480px) {
   /* On very narrow screens, give the bar less width so the row doesn't crowd */
   .manifest-entry__bar {
