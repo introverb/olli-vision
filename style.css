@@ -760,16 +760,37 @@ a.manifest-entry__row[href="#"] .manifest-entry__indicator--arrow {
 }
 
 .manifest-entry__chevron {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-left: 0.7em;
-  font-size: 0.78em;
+  width: 1.6em;
+  height: 1.6em;
+  border: 1px solid rgba(230, 226, 214, 0.35);
+  border-radius: 50%;
+  font-size: 0.7em;
   line-height: 1;
-  color: rgba(230, 226, 214, 0.55);
-  transition: transform 0.3s ease;
+  color: rgba(230, 226, 214, 0.85);
+  transition: transform 0.3s ease, color 0.3s ease, border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+/* Hover state on the summary row — affordance that the row toggles. */
+summary.manifest-entry__row:hover .manifest-entry__title,
+summary.manifest-entry__row:hover .manifest-entry__indicator {
+  color: rgba(230, 226, 214, 1);
+}
+
+summary.manifest-entry__row:hover .manifest-entry__chevron {
+  border-color: rgba(230, 226, 214, 0.7);
+  background-color: rgba(230, 226, 214, 0.08);
+  color: #fff;
 }
 
 .manifest-entry__details[open] .manifest-entry__chevron {
   transform: rotate(180deg);
+  border-color: rgba(230, 226, 214, 0.55);
+  color: var(--ink);
 }
 
 /* Blurb shown below in-progress entry rows (no clickthrough, so the
