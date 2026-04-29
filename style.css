@@ -1166,6 +1166,68 @@ body.page-entry {
   }
 }
 
+/* ========== Redaction marker — inline classified-doc style ==========
+   Wraps a [REDACTED] token in body or title text with a black bar +
+   muted mono caps so it reads like an actual FOIA redaction. */
+
+.redacted {
+  display: inline-block;
+  background: #000;
+  color: rgba(230, 226, 214, 0.55);
+  padding: 0 0.45em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.85em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid rgba(230, 226, 214, 0.18);
+  vertical-align: baseline;
+  line-height: 1.2;
+}
+
+/* Larger redaction in an entry title — sized down relative to the
+   Agelast caps around it so the box reads as a stamp inserted into
+   the title rather than a full word. */
+.entry__title .redacted {
+  font-size: 0.45em;
+  letter-spacing: 0.16em;
+  padding: 0.2em 0.5em;
+  vertical-align: 0.18em;
+  margin-right: 0.18em;
+}
+
+/* ========== Full-width image gallery (breaks out of .entry margins) ==========
+   For pages where a section of images should ignore the text column
+   and span the page edge-to-edge with its own padding. */
+
+.entry-gallery {
+  padding: 0 20px 8vh;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.entry-gallery__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.entry-gallery__row:last-child {
+  margin-bottom: 0;
+}
+
+.entry-gallery img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .entry-gallery__row {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ========== Substack post card (used inside .entry__body) ==========
    Dark-themed link card for an external Substack post — date, title,
    dek, excerpt, and a "Read on Substack ↗" CTA. */
