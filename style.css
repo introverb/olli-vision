@@ -748,23 +748,35 @@ a.manifest-entry__row[href="#"] .manifest-entry__indicator--arrow {
   font-variant-numeric: tabular-nums;
 }
 
-/* Blurb shown below in-progress entry rows (no clickthrough, so the
-   description lives inline). Hidden at rest — only revealed when the
-   entry is hovered or focused, so the list stays compact by default. */
-.manifest-entry__blurb {
-  max-width: 640px;
-  max-height: 0;
-  padding: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height 0.45s ease, opacity 0.3s ease, padding 0.3s ease;
+/* In-progress entries wrap their row + blurb in a <details>. The summary
+   replaces the .manifest-entry__row div as the click target — chevron
+   rotates to indicate state. */
+.manifest-entry__details summary.manifest-entry__row {
+  list-style: none;
+  cursor: pointer;
+}
+.manifest-entry__details summary.manifest-entry__row::-webkit-details-marker {
+  display: none;
 }
 
-.manifest-entry:hover .manifest-entry__blurb,
-.manifest-entry:focus-within .manifest-entry__blurb {
-  max-height: 16em;
+.manifest-entry__chevron {
+  display: inline-block;
+  margin-left: 0.7em;
+  font-size: 0.78em;
+  line-height: 1;
+  color: rgba(230, 226, 214, 0.55);
+  transition: transform 0.3s ease;
+}
+
+.manifest-entry__details[open] .manifest-entry__chevron {
+  transform: rotate(180deg);
+}
+
+/* Blurb shown below in-progress entry rows (no clickthrough, so the
+   description lives inline). Visible when its parent <details> is open. */
+.manifest-entry__blurb {
+  max-width: 640px;
   padding: 0 0 1.6em 0;
-  opacity: 1;
 }
 
 .manifest-entry__blurb p {
