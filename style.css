@@ -788,12 +788,17 @@ a.manifest-entry__row[href="#"] .manifest-entry__indicator--arrow {
 }
 
 .manifest-entry__blurb-stat {
-  display: inline-block;
+  display: block;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.7rem;
   letter-spacing: 0.18em;
+  line-height: 1.55;
   text-transform: uppercase;
   color: rgba(230, 226, 214, 0.5);
+}
+
+.manifest-entry__blurb-stat + .manifest-entry__blurb-stat {
+  margin-top: 0.6em;
 }
 
 @media (max-width: 480px) {
