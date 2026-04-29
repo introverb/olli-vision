@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Updog &middot; Olli Payne</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noticia+Text:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css?v=92" />
+</head>
+<body class="page-entry page-entry--centered">
+  <main class="entry">
+    <nav class="entry__nav">
+      <a class="entry__back" href="/manifestations/">&larr; Manifestations</a>
+    </nav>
+
+    <button class="entry__centered-link" type="button" data-open-lightbox>what&rsquo;s updog?</button>
+  </main>
+
+  <dialog class="entry__lightbox" id="updog-lightbox">
+    <form method="dialog">
+      <button class="entry__lightbox__close" type="submit" aria-label="Close">&times;</button>
+    </form>
+    <img src="updog.jpg" alt="Updog" />
+  </dialog>
+
+  <script>
+    (function () {
+      var dialog = document.getElementById('updog-lightbox');
+      var trigger = document.querySelector('[data-open-lightbox]');
+      if (!dialog || !trigger) return;
+      trigger.addEventListener('click', function () { dialog.showModal(); });
+      // Click on the dialog padding/backdrop area closes; clicks on
+      // the image (or close button) don't bubble up as dialog itself.
+      dialog.addEventListener('click', function (e) {
+        if (e.target === dialog) dialog.close();
+      });
+    })();
+  </script>
+</body>
+</html>
