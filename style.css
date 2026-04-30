@@ -302,6 +302,19 @@ body::before {
   margin-top: 0.25em;
 }
 
+/* Featured link at the top of a panel body — no different from a
+   regular .panel__body link, just a clean paragraph wrapper. */
+.panel__top-link {
+  margin: 0;
+}
+
+/* Thin divider used to separate a top link from a list below it. */
+.panel__divider {
+  border: 0;
+  border-top: 1px solid rgba(230, 226, 214, 0.15);
+  margin: 0.7em 0;
+}
+
 .panel__timeline {
   list-style: none;
   margin: 0;
