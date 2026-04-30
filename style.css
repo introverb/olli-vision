@@ -1166,6 +1166,37 @@ body.page-entry {
   }
 }
 
+/* Section heading inside an entry body — smaller Agelast caps,
+   used for "Phase One" / "Phase Two" / etc. sub-sections that
+   live below the .entry__subhead-block. */
+.entry__section-head {
+  font-family: "Agelast", serif;
+  font-weight: 400;
+  font-size: clamp(1.05rem, 2.4vh, 1.35rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(230, 226, 214, 0.95);
+  margin: 2.4em 0 0.7em;
+  line-height: 1.2;
+}
+
+/* Thin centered divider — a beat between sections inside body prose. */
+.entry__divider {
+  display: block;
+  border: 0;
+  width: 2em;
+  height: 1px;
+  background: rgba(230, 226, 214, 0.3);
+  margin: 3em 0;
+}
+
+/* "…to be continued" closing — italic dim, light air around it. */
+.entry__continuation {
+  font-style: italic;
+  color: rgba(230, 226, 214, 0.55);
+  margin-top: 1.4em;
+}
+
 /* ========== Redaction marker — inline classified-doc style ==========
    Wraps a [REDACTED] token in body or title text with a black bar +
    muted mono caps so it reads like an actual FOIA redaction. */
