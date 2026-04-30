@@ -302,10 +302,12 @@ body::before {
   margin-top: 0.25em;
 }
 
-/* Featured link at the top of a panel body — no different from a
-   regular .panel__body link, just a clean paragraph wrapper. */
+/* Featured link in a panel body — same color/treatment as other panel
+   links, but 1.5x the default body font size to read as primary. */
 .panel__top-link {
   margin: 0;
+  font-size: 1.5em;
+  line-height: 1.2;
 }
 
 /* Thin divider used to separate a top link from a list below it. */
