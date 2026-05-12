@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git restore *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(python -c \"from PIL import Image; img = Image.open\\('03-line-drawing.png'\\); print\\(f'{img.size[0]}x{img.size[1]} ratio={img.size[1]/img.size[0]:.3f}'\\)\")"
+    ]
+  }
+}

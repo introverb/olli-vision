@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noticia+Text:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=99" />
+  <link rel="stylesheet" href="style.css?v=100" />
 </head>
 <body>
   <main class="stage">
@@ -111,8 +111,167 @@
 
       <article class="panel">
         <h2 class="panel__title">Index</h2>
-        <div class="panel__body panel__body--mirror" data-manifest-mirror>
-          <p class="panel__manifest-mirror-loading">Loading catalog&hellip;</p>
+        <div class="panel__body panel__body--mirror">
+          <ol class="manifestations__list" data-manifestations>
+            <!-- Source order doesn't matter — script.js sorts on load:
+                 percent entries first (highest % first), then dated
+                 (newest first). -->
+
+            <li class="manifest-entry" data-percent="89">
+              <details class="manifest-entry__details">
+                <summary class="manifest-entry__row">
+                  <span class="manifest-entry__meta">In Progress</span>
+                  <span class="manifest-entry__title">Kaizo Ironmon Challenge</span>
+                  <span class="manifest-entry__indicator">
+                    <span class="manifest-entry__bar"><span class="manifest-entry__bar-fill" style="width: 89%"></span></span>
+                    <span class="manifest-entry__pct">89%</span>
+                  </span>
+                  <span class="manifest-entry__chevron" aria-hidden="true"></span>
+                </summary>
+                <div class="manifest-entry__blurb">
+                  <p>I am currently trying to complete the hardest known Pok&eacute;mon randomized emulator challenge on Pok&eacute;mon Fire Red.</p>
+                  <span class="manifest-entry__blurb-stat">personal best: Bruno No. 2</span>
+                </div>
+              </details>
+            </li>
+
+            <li class="manifest-entry" data-percent="47">
+              <details class="manifest-entry__details">
+                <summary class="manifest-entry__row">
+                  <span class="manifest-entry__meta">In Progress</span>
+                  <span class="manifest-entry__title">The Time I Was Legally Kidnapped and Sent to Live in a Cult &mdash; a true story</span>
+                  <span class="manifest-entry__indicator">
+                    <span class="manifest-entry__bar"><span class="manifest-entry__bar-fill" style="width: 47%"></span></span>
+                    <span class="manifest-entry__pct">47%</span>
+                  </span>
+                  <span class="manifest-entry__chevron" aria-hidden="true"></span>
+                </summary>
+                <div class="manifest-entry__blurb">
+                  <p>The story of my experience in the Teen Challenge Columbus Girls Academy, a &ldquo;therapeutic boarding school&rdquo; which I attended against my will in 2011.</p>
+                  <span class="manifest-entry__blurb-stat manifest-entry__blurb-stat--warning">Trigger Warnings: abuse, cults, brainwashing, religious radicalism, isolation, subversion, self-harm including eating disorders, homophobia, death</span>
+                  <span class="manifest-entry__blurb-stat">words written: 3500+</span>
+                </div>
+              </details>
+            </li>
+
+            <li class="manifest-entry" data-percent="15">
+              <details class="manifest-entry__details">
+                <summary class="manifest-entry__row">
+                  <span class="manifest-entry__meta">In Progress</span>
+                  <span class="manifest-entry__title">FLW Meditations</span>
+                  <span class="manifest-entry__indicator">
+                    <span class="manifest-entry__bar"><span class="manifest-entry__bar-fill" style="width: 15%"></span></span>
+                    <span class="manifest-entry__pct">15%</span>
+                  </span>
+                  <span class="manifest-entry__chevron" aria-hidden="true"></span>
+                </summary>
+                <div class="manifest-entry__blurb">
+                  <p>An ongoing case study of Frank Lloyd Wright, and the development of my thesis on how his work aims to limit agency and belittle the personhood of human beings.</p>
+                  <span class="manifest-entry__blurb-stat">sites visited: 3</span>
+                </div>
+              </details>
+            </li>
+
+            <li class="manifest-entry" data-percent="5">
+              <details class="manifest-entry__details">
+                <summary class="manifest-entry__row">
+                  <span class="manifest-entry__meta">In Progress</span>
+                  <span class="manifest-entry__title">I won a TLC reality show for female entrepreneurs &mdash; and never saw the $100k prize money</span>
+                  <span class="manifest-entry__indicator">
+                    <span class="manifest-entry__bar"><span class="manifest-entry__bar-fill" style="width: 5%"></span></span>
+                    <span class="manifest-entry__pct">5%</span>
+                  </span>
+                  <span class="manifest-entry__chevron" aria-hidden="true"></span>
+                </summary>
+                <div class="manifest-entry__blurb">
+                  <p>In 2016, I competed in and won TLC&rsquo;s pilot season of <em>Girl Starter</em>, a reality show framed as a launchpad for women entrepreneurs. The $100,000 prize was withheld from me and my cofounder. I&rsquo;m writing about how the showrunners intentionally weaponized class precarity and financial coercion against the young women it claimed to elevate. I might get sued for this, we&rsquo;ll see.</p>
+                  <span class="manifest-entry__blurb-stat">Lawyers Contacted: 6</span>
+                </div>
+              </details>
+            </li>
+
+            <li class="manifest-entry" data-percent="25">
+              <details class="manifest-entry__details">
+                <summary class="manifest-entry__row">
+                  <span class="manifest-entry__meta">In Progress</span>
+                  <span class="manifest-entry__title">The Pantheon in Palettes</span>
+                  <span class="manifest-entry__indicator">
+                    <span class="manifest-entry__bar"><span class="manifest-entry__bar-fill" style="width: 25%"></span></span>
+                    <span class="manifest-entry__pct">25%</span>
+                  </span>
+                  <span class="manifest-entry__chevron" aria-hidden="true"></span>
+                </summary>
+                <div class="manifest-entry__blurb">
+                  <p>A collection of collages, each created for a different Greek god or goddess and represented in the form of a unified color and concept palette.</p>
+                  <span class="manifest-entry__blurb-stat">gods offered to: 4/16</span>
+                </div>
+              </details>
+            </li>
+
+            <li class="manifest-entry" data-date="2026-04-19">
+              <a class="manifest-entry__row" href="https://qubiereport.up.railway.app/" target="_blank" rel="noopener">
+                <span class="manifest-entry__meta">2026.04.19</span>
+                <span class="manifest-entry__title">Qubie News</span>
+                <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+              </a>
+            </li>
+
+            <li class="manifest-entry" data-date="2026-04-15">
+              <a class="manifest-entry__row" href="https://introverb.github.io/gradiatron3000/" target="_blank" rel="noopener">
+                <span class="manifest-entry__meta">2026.04.15</span>
+                <span class="manifest-entry__title">Gradiatron 3000</span>
+                <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+              </a>
+            </li>
+
+            <li class="manifest-entry" data-date="2025-07-25">
+              <a class="manifest-entry__row" href="/manifestations/ovamanner/">
+                <span class="manifest-entry__meta">2025.07.25</span>
+                <span class="manifest-entry__title">OvaManner</span>
+                <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+              </a>
+            </li>
+
+            <li class="manifest-entry" data-date="2025-07-15">
+              <a class="manifest-entry__row" href="/manifestations/rule-90/">
+                <span class="manifest-entry__meta">2025.07.15</span>
+                <span class="manifest-entry__title">Rule 90 Admiral&rsquo;s Vest</span>
+                <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+              </a>
+            </li>
+
+            <li class="manifest-entry" data-date="2025-05-22">
+              <a class="manifest-entry__row" href="/manifestations/nice-space/">
+                <span class="manifest-entry__meta">2025.05.22</span>
+                <span class="manifest-entry__title">a nice space for myself</span>
+                <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+              </a>
+            </li>
+
+            <li class="manifest-entry" data-date="2024-06-13">
+              <a class="manifest-entry__row" href="/manifestations/redacted/">
+                <span class="manifest-entry__meta">2024.06.13</span>
+                <span class="manifest-entry__title">[REDACTED] Architectural Project</span>
+                <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+              </a>
+            </li>
+
+            <li class="manifest-entry" data-date="2023-11-27">
+              <a class="manifest-entry__row" href="/manifestations/altese-fulcrum/">
+                <span class="manifest-entry__meta">2023.11.27</span>
+                <span class="manifest-entry__title">The Altese Fulcrum</span>
+                <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+              </a>
+            </li>
+
+            <li class="manifest-entry" data-date="2023-06-09">
+              <a class="manifest-entry__row" href="/manifestations/updog/">
+                <span class="manifest-entry__meta">2023.06.09</span>
+                <span class="manifest-entry__title">Updog</span>
+                <span class="manifest-entry__indicator manifest-entry__indicator--arrow" aria-hidden="true">&rarr;</span>
+              </a>
+            </li>
+          </ol>
         </div>
         <div class="panel__hud" aria-hidden="true">
           <div class="panel__hud-line panel__hud-line--tag">V &middot; Catalog</div>
@@ -133,6 +292,6 @@
       </svg>
     </div>
   </main>
-  <script src="script.js?v=27"></script>
+  <script src="script.js?v=28"></script>
 </body>
 </html>

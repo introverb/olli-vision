@@ -1,9 +1,9 @@
 // Manifestations list sorting. Percent (in-progress) entries first, sorted
 // by % descending (closer to done at top); dated entries below, newest
 // first. Source order in the HTML doesn't matter — drop new entries
-// anywhere. Exposed as a function so the same logic can apply to the live
-// /manifestations/ page AND the mirrored list inside the home Index panel.
-function sortManifestations(list) {
+// anywhere.
+(() => {
+  const list = document.querySelector("[data-manifestations]");
   if (!list) return;
   const items = Array.from(list.children);
   items.sort((a, b) => {
@@ -18,30 +18,6 @@ function sortManifestations(list) {
     return 0;
   });
   for (const item of items) list.appendChild(item);
-}
-
-// On the manifestations page itself: sort in place.
-sortManifestations(document.querySelector("[data-manifestations]"));
-
-// On the home page: fetch /manifestations/ and inject its list into the
-// Index panel so the home page mirrors the catalog without us having to
-// keep two copies in sync.
-(() => {
-  const mount = document.querySelector("[data-manifest-mirror]");
-  if (!mount) return;
-  fetch("/manifestations/")
-    .then((r) => r.text())
-    .then((html) => {
-      const doc = new DOMParser().parseFromString(html, "text/html");
-      const list = doc.querySelector(".manifestations__list");
-      if (!list) return;
-      mount.replaceChildren(list);
-      sortManifestations(list);
-    })
-    .catch(() => {
-      mount.innerHTML =
-        '<p class="panel__manifest-mirror-error">Could not load catalog.</p>';
-    });
 })();
 
 // HUD: live NYC local clock for the Identity panel (only piece of live data).
