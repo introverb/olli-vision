@@ -5,3 +5,6 @@ desktop.ini
 images/op-vik.jpg
 
 .claude/settings.local.json
+
+# Stray PDFs that drifted into manifestation folders
+manifestations/**/*.pdf
