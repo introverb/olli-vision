@@ -317,6 +317,76 @@ body::before {
   margin: 0.7em 0;
 }
 
+/* Bottom-left links inside a panel — mirror of the bottom-right HUD
+   pattern, but for outbound links instead of readout data. Mono small
+   caps stack, fades in on panel hover / active. */
+.panel__corner-links {
+  position: absolute;
+  bottom: 1.4vh;
+  left: 1.4vw;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.6rem, 0.82vh, 0.72rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease 0.35s;
+}
+
+.panel:hover .panel__corner-links,
+.panel.is-active .panel__corner-links {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.panel__corner-links a {
+  color: rgba(230, 226, 214, 0.75);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(230, 226, 214, 0.22);
+  padding-bottom: 1px;
+  white-space: nowrap;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.panel__corner-links a:hover {
+  color: #fff;
+  border-bottom-color: rgba(230, 226, 214, 0.6);
+}
+
+/* Index panel: scrollable mirror of /manifestations/, fetched on load. */
+.panel__body--mirror {
+  overflow-y: auto;
+  /* Leave room at the bottom so the last entry doesn't disappear under
+     the HUD readout at the panel's bottom-right corner. */
+  padding-bottom: 9vh;
+}
+
+.panel__manifest-mirror-loading,
+.panel__manifest-mirror-error {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(230, 226, 214, 0.4);
+  margin: 1em 0;
+}
+
+/* Tighten the manifest list slightly when it lives inside a panel —
+   the global per-page rhythm is too tall for the smaller container. */
+.panel__body--mirror .manifestations__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.panel__body--mirror .manifest-entry__row {
+  padding: 0.95em 0;
+}
+
 .panel__timeline {
   list-style: none;
   margin: 0;
