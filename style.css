@@ -357,12 +357,27 @@ body::before {
   border-bottom-color: rgba(230, 226, 214, 0.6);
 }
 
-/* Index panel: scrollable mirror of /manifestations/, fetched on load. */
+/* Index panel: scrollable inline catalog. */
 .panel__body--mirror {
   overflow-y: auto;
   /* Leave room at the bottom so the last entry doesn't disappear under
      the HUD readout at the panel's bottom-right corner. */
   padding-bottom: 9vh;
+  /* Fade-to-transparent at the bottom so scrolling entries dissolve
+     before they collide visually with the HUD readout. Content stays
+     scrollable; only the visible rendering fades. */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0,
+    #000 calc(100% - 9vh),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0,
+    #000 calc(100% - 9vh),
+    transparent 100%
+  );
 }
 
 .panel__manifest-mirror-loading,
