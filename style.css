@@ -410,6 +410,13 @@ body::before {
   padding: 0.95em 0;
 }
 
+/* Override the global .panel__body a underline for entry rows inside
+   the Index mirror — rows are link affordances, not inline links. */
+.panel__body--mirror a.manifest-entry__row,
+.panel__body--mirror a.manifest-entry__row:hover {
+  text-decoration: none;
+}
+
 .panel__timeline {
   list-style: none;
   margin: 0;
