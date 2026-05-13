@@ -378,14 +378,24 @@ body::before {
     #000 calc(100% - 9vh),
     transparent 100%
   );
-  /* Hide the scrollbar — it overlaps the HUD readout in the bottom-
-     right corner. Content stays scrollable via wheel/touch; the
-     bottom fade-out already telegraphs that there's more content. */
-  scrollbar-width: none; /* Firefox */
+  /* Minimal hairline scrollbar — visible enough to signal "this is a
+     bounded list, not infinite scroll" without competing with the HUD
+     readout in the bottom-right corner. */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(230, 226, 214, 0.28) transparent;
 }
 
 .panel__body--mirror::-webkit-scrollbar {
-  display: none; /* Chromium / Safari */
+  width: 2px;
+}
+.panel__body--mirror::-webkit-scrollbar-track {
+  background: transparent;
+}
+.panel__body--mirror::-webkit-scrollbar-thumb {
+  background-color: rgba(230, 226, 214, 0.28);
+}
+.panel__body--mirror::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(230, 226, 214, 0.5);
 }
 
 .panel__manifest-mirror-loading,
