@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect width="64" height="64" rx="5" fill="#0b0b0c"/>
-  <g fill="none" stroke="#e6e2d6" stroke-width="3.5">
-    <!-- O: thin geometric ring -->
-    <circle cx="25" cy="32" r="13"/>
-    <!-- P: vertical stem + half-circle bowl on top right -->
-    <line x1="44" y1="18" x2="44" y2="46"/>
-    <path d="M 44 18 A 8 8 0 0 1 44 34"/>
+  <g fill="none" stroke="#e6e2d6" stroke-width="3">
+    <!-- O: thin geometric ring (r=10, smaller than before) -->
+    <circle cx="25" cy="32" r="10"/>
+    <!-- P: vertical stem + half-circle bowl (Agelast-style geometric) -->
+    <line x1="44" y1="22" x2="44" y2="42"/>
+    <path d="M 44 22 A 5 5 0 0 1 44 32"/>
   </g>
 </svg>
