@@ -386,25 +386,26 @@ body::before {
 }
 
 .panel__body--mirror::-webkit-scrollbar {
-  width: 2px;
+  width: 1px;
 }
 /* Kill the up/down arrow buttons — pure line, no chrome. */
 .panel__body--mirror::-webkit-scrollbar-button {
   display: none;
   height: 0;
 }
-/* Shorten the track so the scrollbar ends above the HUD readout
-   instead of running into it. */
+/* Shorten the track so the scrollbar ends above the HUD readout. */
 .panel__body--mirror::-webkit-scrollbar-track {
   background: transparent;
   margin-bottom: 9vh;
 }
+/* Thumb is a true hairline — square, slim, faint. Reads as "this list
+   has a definite end" without being any kind of UI affordance. */
 .panel__body--mirror::-webkit-scrollbar-thumb {
-  background-color: rgba(230, 226, 214, 0.22);
+  background-color: rgba(230, 226, 214, 0.3);
   border-radius: 0;
 }
 .panel__body--mirror::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(230, 226, 214, 0.45);
+  background-color: rgba(230, 226, 214, 0.55);
 }
 
 .panel__manifest-mirror-loading,
