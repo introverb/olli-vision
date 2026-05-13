@@ -378,6 +378,14 @@ body::before {
     #000 calc(100% - 9vh),
     transparent 100%
   );
+  /* Hide the scrollbar — it overlaps the HUD readout in the bottom-
+     right corner. Content stays scrollable via wheel/touch; the
+     bottom fade-out already telegraphs that there's more content. */
+  scrollbar-width: none; /* Firefox */
+}
+
+.panel__body--mirror::-webkit-scrollbar {
+  display: none; /* Chromium / Safari */
 }
 
 .panel__manifest-mirror-loading,
