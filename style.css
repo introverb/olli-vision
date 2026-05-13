@@ -363,13 +363,11 @@ body::before {
   /* Leave room at the bottom so the last entry doesn't disappear under
      the HUD readout at the panel's bottom-right corner. */
   padding-bottom: 9vh;
-  /* Minimal hairline scrollbar — visible enough to signal "this is a
-     bounded list, not infinite scroll" without competing with the HUD
-     readout in the bottom-right corner. (Note: mask-image on this
-     element used to break custom scrollbar rendering in Chromium —
-     the fade-out is now done via a sibling overlay below.) */
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: rgba(230, 226, 214, 0.22) transparent;
+  /* NOTE: deliberately NOT setting `scrollbar-width: thin` here.
+     Chrome 121+ uses its built-in thin scrollbar renderer when that
+     property is set, and ignores the ::-webkit-scrollbar rules below.
+     The webkit-scrollbar rules give us a true 1px hairline; Firefox
+     falls back to its default scrollbar (acceptable trade). */
 }
 
 /* Fade-to-transparent overlay at the bottom of the Index panel —
