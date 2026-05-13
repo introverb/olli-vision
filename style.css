@@ -363,26 +363,33 @@ body::before {
   /* Leave room at the bottom so the last entry doesn't disappear under
      the HUD readout at the panel's bottom-right corner. */
   padding-bottom: 9vh;
-  /* Fade-to-transparent at the bottom so scrolling entries dissolve
-     before they collide visually with the HUD readout. Content stays
-     scrollable; only the visible rendering fades. */
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0,
-    #000 calc(100% - 9vh),
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    #000 0,
-    #000 calc(100% - 9vh),
-    transparent 100%
-  );
   /* Minimal hairline scrollbar — visible enough to signal "this is a
      bounded list, not infinite scroll" without competing with the HUD
-     readout in the bottom-right corner. */
+     readout in the bottom-right corner. (Note: mask-image on this
+     element used to break custom scrollbar rendering in Chromium —
+     the fade-out is now done via a sibling overlay below.) */
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: rgba(230, 226, 214, 0.22) transparent;
+}
+
+/* Fade-to-transparent overlay at the bottom of the Index panel —
+   replaces the mask-image approach so the scrollbar styling can
+   actually take effect. Sits above the manifest content but below
+   the HUD readout (z-index 0 vs HUD's z-index 1). */
+.panel:has(> .panel__body--mirror)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 9vh;
+  background: linear-gradient(
+    to bottom,
+    transparent 0,
+    var(--bg) 75%
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
 .panel__body--mirror::-webkit-scrollbar {
