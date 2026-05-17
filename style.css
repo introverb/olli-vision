@@ -219,7 +219,11 @@ body::before {
   font-size: clamp(0.95rem, 1.4vh, 1.25rem);
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--ink);
+  /* Agelast is single-weight — simulate a slightly thicker stroke via
+     text-stroke so the title holds up on lower-contrast displays.
+     Color bumped slightly brighter for legibility on dim panels. */
+  color: #f1ede1;
+  -webkit-text-stroke: 0.4px currentColor;
   margin: 0;
   line-height: 1;
 }
