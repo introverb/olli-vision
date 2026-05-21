@@ -407,7 +407,7 @@ body::before {
   overflow-y: auto;
   /* Leave room at the bottom so the last entry doesn't disappear under
      the HUD readout at the panel's bottom-right corner. */
-  padding-bottom: 9vh;
+  padding-bottom: 13vh;
   /* NOTE: deliberately NOT setting `scrollbar-width: thin` here.
      Chrome 121+ uses its built-in thin scrollbar renderer when that
      property is set, and ignores the ::-webkit-scrollbar rules below.
@@ -425,11 +425,11 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 9vh;
+  height: 13vh;
   background: linear-gradient(
     to bottom,
     transparent 0,
-    var(--bg) 75%
+    var(--bg) 55%
   );
   pointer-events: none;
   z-index: 0;
@@ -446,7 +446,7 @@ body::before {
 /* Shorten the track so the scrollbar ends above the HUD readout. */
 .panel__body--mirror::-webkit-scrollbar-track {
   background: transparent;
-  margin-bottom: 9vh;
+  margin-bottom: 13vh;
 }
 /* Thumb is a true hairline — square, slim, faint. Reads as "this list
    has a definite end" without being any kind of UI affordance. */
