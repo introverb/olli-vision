@@ -1,7 +1,49 @@
-// Manifestations list now renders in source order — auto-sort removed
-// so the catalog can be curated by hand (specific entries at specific
-// positions rather than mechanically by % or date). Edit the order
-// directly in index.html.
+// Manifestations list: default render is the manual "Author's Choice"
+// source order. The sort toggle inside the Index panel can switch to a
+// Date-based view (in-progress entries pinned to top by % descending,
+// dated entries below newest-first).
+(() => {
+  const list = document.querySelector("[data-manifestations]");
+  if (!list) return;
+
+  // Snapshot the manual order at load time so we can restore it.
+  const authorOrder = Array.from(list.children);
+
+  function applyDateSort() {
+    const items = Array.from(list.children);
+    items.sort((a, b) => {
+      const aPct = a.dataset.percent;
+      const bPct = b.dataset.percent;
+      const aDate = a.dataset.date;
+      const bDate = b.dataset.date;
+      // In-progress entries always pinned to the top.
+      if (aPct && !bPct) return -1;
+      if (!aPct && bPct) return 1;
+      // Both in-progress: highest percent first.
+      if (aPct && bPct) return Number(bPct) - Number(aPct);
+      // Both dated: newest first (ISO strings sort lexicographically).
+      if (aDate && bDate) return bDate.localeCompare(aDate);
+      return 0;
+    });
+    for (const item of items) list.appendChild(item);
+  }
+
+  function applyAuthorSort() {
+    for (const item of authorOrder) list.appendChild(item);
+  }
+
+  const buttons = document.querySelectorAll(
+    "[data-sort-toggle] .panel__sort-option"
+  );
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      buttons.forEach((b) => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
+      if (btn.dataset.sort === "date") applyDateSort();
+      else applyAuthorSort();
+    });
+  });
+})();
 
 // HUD: live NYC local clock for the Identity panel (only piece of live data).
 (() => {

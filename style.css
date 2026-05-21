@@ -361,6 +361,47 @@ body::before {
   border-bottom-color: rgba(230, 226, 214, 0.6);
 }
 
+/* Sort toggle bar inside the Index panel — small mono caps "sort by:"
+   label plus two clickable options. The active option carries a
+   hairline outlined box. */
+.panel__sort {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0 0 1em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(230, 226, 214, 0.45);
+  flex-wrap: wrap;
+}
+
+.panel__sort-label {
+  white-space: nowrap;
+}
+
+.panel__sort-option {
+  background: none;
+  border: 1px solid transparent;
+  padding: 0.25em 0.55em;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: rgba(230, 226, 214, 0.55);
+  cursor: pointer;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.panel__sort-option:hover {
+  color: rgba(230, 226, 214, 0.95);
+}
+
+.panel__sort-option.is-active {
+  border-color: rgba(230, 226, 214, 0.5);
+  color: rgba(230, 226, 214, 1);
+}
+
 /* Index panel: scrollable inline catalog. */
 .panel__body--mirror {
   overflow-y: auto;
