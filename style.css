@@ -714,6 +714,35 @@ body::before {
   .panel.is-active .panel__cta {
     display: inline-flex;
   }
+
+  /* Corner links (orgs at bottom-left of Current panel) — also go
+     static and stack at the bottom of the panel body so they don't
+     float as an absolute overlay over the HUD. */
+  .panel__corner-links {
+    position: static;
+    display: none;
+    flex-direction: column;
+    margin-top: 1.4em;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .panel.is-active .panel__corner-links {
+    display: flex;
+  }
+
+  /* Index panel: no internal scrolling on mobile (panel itself grows
+     with its content via the page accordion), so remove the
+     scroll-only chrome — extra bottom padding and the fade overlay
+     would otherwise hide the last manifest entries. */
+  .panel__body--mirror {
+    overflow: visible;
+    padding-bottom: 0;
+  }
+
+  .panel:has(> .panel__body--mirror)::after {
+    display: none;
+  }
 }
 
 @keyframes hero-expand {
