@@ -72,8 +72,14 @@
   document.querySelectorAll(".panel").forEach((panel) => {
     panel.addEventListener("click", (e) => {
       if (isDesktop()) return;
-      // Don't toggle when tapping a link inside the panel
-      if (e.target.closest("a")) return;
+      // Don't toggle when tapping anything interactive inside the panel —
+      // links, sort buttons, details/summary blurb toggles, form controls.
+      if (
+        e.target.closest(
+          "a, button, summary, details, input, textarea, select, label"
+        )
+      )
+        return;
       panel.classList.toggle("is-active");
     });
   });

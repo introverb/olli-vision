@@ -657,6 +657,24 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    /* Bump up on mobile so panel labels read clearly on small screens.
+       Drop the desktop text-stroke — some mobile webkit renders it as
+       blurred/halo'd text. */
+    font-size: clamp(1.1rem, 1.8vh, 1.4rem);
+    -webkit-text-stroke: 0;
+  }
+
+  /* When the panel is open, pin its title to the top so the label
+     stays visible while scrolling the (sometimes long) panel body
+     past it — e.g. so "Index" doesn't disappear as you scroll the
+     13-item manifest list. */
+  .panel.is-active .panel__title {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: #171717;
+    margin: -2vh -4vw 1.4vh;
+    padding: 2vh 4vw;
   }
 
   /* Chevron indicator — rotates when active */
